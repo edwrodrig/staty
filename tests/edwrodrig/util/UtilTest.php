@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\util;
+namespace test\edwrodrig\util;
 
+use edwrodrig\util\Exception;
+use edwrodrig\util\Util;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 

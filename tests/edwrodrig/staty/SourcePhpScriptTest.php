@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace test\edwrodrig\staty;
 
+use edwrodrig\staty\SourcePhpScript;
 use edwrodrig\util\Exception;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -79,8 +80,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::create_from_string('<?php /** @var edwrodrig\staty\test\DummyPageTemplate $template **/', $source_filename);
-        $this->assertEquals('edwrodrig\staty\test\DummyPageTemplate', $source_file->get_template_class());
+        $source_file = SourcePhpScript::create_from_string('<?php /** @var test\edwrodrig\staty\DummyPageTemplate $template **/', $source_filename);
+        $this->assertEquals('test\edwrodrig\staty\DummyPageTemplate', $source_file->get_template_class());
 
     }
 

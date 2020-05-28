@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace test\edwrodrig\staty;
 
+use edwrodrig\staty\Context;
+use edwrodrig\staty\Page;
+use edwrodrig\staty\ReaderFile;
 use edwrodrig\util\Exception;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,9 +32,7 @@ class ReaderFileTest extends TestCase
         $context = new Context();
         $reader = new ReaderFile($context, $source_filename, $path);
 
-        /**
-         * @var Page[] $pages
-         */
+        /** @var Page[] $pages */
         $pages = iterator_to_array($reader->read_pages(), false);
         $this->assertCount(1, $pages);
         $page = $pages[0];

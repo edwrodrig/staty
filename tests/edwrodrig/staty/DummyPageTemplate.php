@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty\test;
+namespace test\edwrodrig\staty;
 
 use edwrodrig\staty\PageTemplate;
 

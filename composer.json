@@ -26,21 +26,21 @@
     },
     "autoload-dev" : {
         "psr-4" : {
-            "edwrodrig\\staty\\test\\" : "modules/staty/test/src/"
+            "test\\edwrodrig\\staty\\" : "tests/edwrodrig/staty/",
+            "test\\edwrodrig\\util\\" : "tests/edwrodrig/util/"
         }
     },
     "archive": {
         "exclude": [
-            "/tests",
             "/.git",
-            "/.gitignore",
-            "/.travis.yml",
-            "/phpunit.xml.dist",
-            "/examples",
             "/.idea",
             "/scripts",
+            "/tests",
+            "/.gitignore",
             "/.phpunit.result.cache",
-            "/README.md"
+            "/phpunit.xml.dist",
+            "/README.md",
+            "/.travis.yml"
         ]
     }
 }

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace edwrodrig\staty;
 
 
-use Generator;
-
 abstract class Reader
 {
     protected Context $context;
@@ -16,8 +14,4 @@ abstract class Reader
 
     }
 
-    /**
-     * @return Generator|Page[]
-     */
-    abstract public function read_pages() : Generator;
 }

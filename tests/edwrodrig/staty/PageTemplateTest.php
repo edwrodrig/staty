@@ -1,8 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace test\edwrodrig\staty;
 
+use edwrodrig\staty\Context;
+use edwrodrig\staty\PageString;
+use edwrodrig\staty\PageTemplate;
+use edwrodrig\staty\SourcePhpScript;
 use edwrodrig\util\Exception;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -103,7 +107,7 @@ class PageTemplateTest extends TestCase
         $template = new PageTemplate($context, "folder_1/file_1", $source_file);
 
 
-        $page = new Page(SourceString::create_from_string("hello"), "folder_2/file_2");
+        $page = new PageString("hello", "folder_2/file_2");
         $this->assertEquals("../folder_2/file_2", $template->make_page($page));
     }
 
