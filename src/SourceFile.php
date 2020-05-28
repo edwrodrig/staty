@@ -1,0 +1,55 @@
+<?php
+declare(strict_types=1);
+
+namespace edwrodrig\staty;
+
+use edwrodrig\util\Exception;
+
+class SourceFile extends Source
+{
+    protected string $filename;
+
+    /**
+     * @param string $string_data
+     * @param string $filename
+     * @return static
+     * @throws Exception
+     */
+    public static function create_from_string(string $string_data, string $filename) : self {
+        @mkdir(dirname($filename), 0777, true);
+        file_put_contents( $filename, $string_data);
+        return static::create_from_filename($filename);
+    }
+
+    /**
+     * @param string $filename
+     * @return static
+     * @throws Exception
+     */
+    public static function create_from_filename(string $filename) : self {
+        return new static($filename);
+    }
+
+    /**
+     * SourceFile constructor.
+     * @param string $filename
+     * @throws Exception
+     */
+    protected function __construct(string $filename) {
+        if ( !file_exists($filename) ) throw Exception::create([
+            'message' => 'source file does not exists',
+            'data' => [
+                'filename' => $filename
+            ]
+        ]);
+        $this->filename = $filename;
+    }
+
+    public function get_filename() : string {
+        return $this->filename;
+    }
+
+    public function get_content() : string {
+        return file_get_contents($this->filename);
+    }
+}

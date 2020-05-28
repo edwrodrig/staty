@@ -1,0 +1,14 @@
+*.swp
+/.phpunit.result.cache
+/composer.lock
+/composer.phar
+/vendor
+/.idea/*
+!/.idea/dictionaries/common.xml
+!/.idea/php.xml
+!/.idea/runConfigurations
+!/.idea/modules.xml
+!/.idea/staty.iml
+!/.idea/php-test-framework.xml
+
+
