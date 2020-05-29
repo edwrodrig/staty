@@ -21,13 +21,13 @@
     "autoload" : {
         "psr-4" : {
             "edwrodrig\\staty\\" : "src/",
-            "edwrodrig\\util\\" : "modules/util/src/"
+            "edwrodrig\\util\\" : "modules/edwrodrig/util/src/"
         }
     },
     "autoload-dev" : {
         "psr-4" : {
-            "test\\edwrodrig\\staty\\" : "tests/edwrodrig/staty/",
-            "test\\edwrodrig\\util\\" : "tests/edwrodrig/util/"
+            "test\\edwrodrig\\staty\\" : "tests/",
+            "test\\edwrodrig\\util\\" : "modules/edwrodrig/util/tests/"
         }
     },
     "archive": {
