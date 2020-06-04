@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace edwrodrig\staty_core;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
-use edwrodrig\staty\PageTemplate;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Object_;

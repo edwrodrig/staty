@@ -1,10 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
-
-
-use edwrodrig\staty_core\SourceString;
+namespace edwrodrig\staty_core;
 
 class PageString extends Page
 {

@@ -26,7 +26,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString("hello", $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -38,7 +38,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString('<?php /** @silent */', $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -50,7 +50,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString('<?php /** @var some $hello **/', $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     public function testGetTemplateClassDocVarTemplateUnknown()
@@ -79,8 +79,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::createFromString('<?php /** @var test\edwrodrig\staty\DummyPageTemplate $template **/', $source_filename);
-        $this->assertEquals('test\edwrodrig\staty\DummyPageTemplate', $source_file->getTemplateClass());
+        $source_file = SourcePhpScript::createFromString('<?php /** @var edwrodrig\staty_core\PageTemplateDummy $template **/', $source_filename);
+        $this->assertEquals('edwrodrig\staty_core\PageTemplateDummy', $source_file->getTemplateClass());
 
     }
 

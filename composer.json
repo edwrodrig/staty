@@ -23,13 +23,17 @@
         "psr-4" : {
             "edwrodrig\\staty\\" : "src/",
             "edwrodrig\\staty_core\\" : "modules/core/src/"
-        }
+        },
+        "exclude-from-classmap": ["modules/core/src/PageTemplateDummy.php"]
     },
     "autoload-dev" : {
         "psr-4" : {
             "test\\edwrodrig\\staty\\" : "tests/",
             "test\\edwrodrig\\staty_core\\" : "modules/core/tests/"
-        }
+        },
+        "files" : [
+            "modules/core/src/PageTemplateDummy.php"
+        ]
     },
     "archive": {
         "exclude": [

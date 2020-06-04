@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty;
+namespace test\edwrodrig\staty_core;
 
-use edwrodrig\staty\PageString;
+use edwrodrig\staty_core\PageString;
 use PHPUnit\Framework\TestCase;
 
 

@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
-use edwrodrig\staty_core\Util;
 use Generator;
 
 class ReaderDirectory extends Reader
@@ -30,7 +29,7 @@ class ReaderDirectory extends Reader
     }
 
     /**
-     * @return Generator|Page[]
+     * @return \edwrodrig\staty_core\Generator|Page[]
      * @throws ExceptionWithData
      */
     public function readPages() : Generator  {

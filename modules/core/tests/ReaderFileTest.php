@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty;
+namespace test\edwrodrig\staty_core;
 
-use edwrodrig\staty\Context;
-use edwrodrig\staty\Page;
-use edwrodrig\staty\ReaderFile;
+use edwrodrig\staty_core\Context;
+use edwrodrig\staty_core\Page;
+use edwrodrig\staty_core\ReaderFile;
 use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;

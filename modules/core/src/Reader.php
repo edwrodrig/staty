@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
 
 abstract class Reader

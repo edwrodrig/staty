@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
-use edwrodrig\staty_core\SourcePhpScript;
-use edwrodrig\staty_core\Util;
 use Throwable;
 
 /**

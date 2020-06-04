@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty;
+namespace test\edwrodrig\staty_core;
 
-use edwrodrig\staty\Context;
-use edwrodrig\staty\PageString;
-use edwrodrig\staty\PageTemplate;
+use edwrodrig\staty_core\Context;
+use edwrodrig\staty_core\PageString;
+use edwrodrig\staty_core\PageTemplate;
 use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
@@ -124,7 +124,7 @@ class PageTemplateTest extends TestCase
         $source_file = SourcePhpScript::createFromString(
 <<<'EOF'
 <?php
-use edwrodrig\staty\PageString;
+use edwrodrig\staty_core\PageString;
 
 $page = new PageString("hello", "folder_2/file_2");
 $template->makePage($page);

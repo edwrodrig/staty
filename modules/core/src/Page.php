@@ -1,9 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
-
-use edwrodrig\staty_core\Source;
+namespace edwrodrig\staty_core;
 
 /**
  * Class Page

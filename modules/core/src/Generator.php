@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
 
