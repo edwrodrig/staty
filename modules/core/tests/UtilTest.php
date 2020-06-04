@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\staty_core;
 
-use edwrodrig\exception_with_data\ExceptionWithData;
 use edwrodrig\staty_core\Util;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
@@ -14,9 +14,9 @@ class UtilTest extends TestCase
     /**
      * @throws Throwable
      */
-    public function test_output_buffer_safe()
+    public function testOutputBufferSafe()
     {
-        $output = Util::output_buffer_safe(function () {
+        $output = Util::outputBufferSafe(function () {
             echo "hello";
         });
         $this->assertEquals('hello', $output);
@@ -26,17 +26,17 @@ class UtilTest extends TestCase
     /**
      * @throws Throwable
      */
-    public function test_output_buffer_safe_exception()
+    public function testOutputBufferSafeException()
     {
-        $this->expectException(ExceptionWithData::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage("hello exception");
-        Util::output_buffer_safe(function () {
-            throw new ExceptionWithData(["message" => "hello exception"]);
+        Util::outputBufferSafe(function () {
+            throw new Exception("hello exception");
         });
 
     }
 
-    public function get_relative_path_provider()
+    public function getRelativePathProvider()
     {
         return [
             ['root/b/b.php', "/home/a.php", "/home/root/b/b.php"],
@@ -57,13 +57,13 @@ class UtilTest extends TestCase
     }
 
     /**
-     * @dataProvider get_relative_path_provider
+     * @dataProvider getRelativePathProvider
      * @param string $expected
      * @param string $from
      * @param string $to
      */
-    public function test_get_relative_path(string $expected, string $from, string $to)
+    public function testGetRelativePath(string $expected, string $from, string $to)
     {
-        $this->assertEquals($expected, Util::get_relative_path($from, $to));
+        $this->assertEquals($expected, Util::getRelativePath($from, $to));
     }
 }

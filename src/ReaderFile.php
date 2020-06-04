@@ -59,6 +59,6 @@ class ReaderFile extends Reader
 
     public function get_relative_path(string $filename) : string {
         $from = $this->base_path;
-        return Util::get_relative_path($from, $filename);
+        return Util::getRelativePath($from, $filename);
     }
 }

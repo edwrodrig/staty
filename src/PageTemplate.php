@@ -36,7 +36,7 @@ class PageTemplate extends Page
      */
     public function get_content() : string {
         $template = $this;
-        return Util::output_buffer_safe(function() use($template) {
+        return Util::outputBufferSafe(function() use($template) {
             /** @noinspection PhpIncludeInspection */
             include $template->get_source()->getFilename();
         });
@@ -59,6 +59,6 @@ class PageTemplate extends Page
         $this->context->prepare($page);
         $from = $this->context->get_absolute_path() . '/' . $this->get_relative_filename();
         $to = $this->context->get_absolute_path() . '/' . $page->get_relative_filename();
-        return Util::get_relative_path($from, $to);
+        return Util::getRelativePath($from, $to);
     }
 }

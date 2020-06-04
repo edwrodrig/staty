@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty;
+namespace test\edwrodrig\staty_core;
 
 use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\exception_with_data\ExceptionWithData;
@@ -20,7 +20,7 @@ class SourcePhpScriptTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_template_class_no_doc()
+    public function testGetTemplateClassNoDoc()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -32,7 +32,7 @@ class SourcePhpScriptTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_template_class_doc_no_var()
+    public function testGetTemplateClassDocNoVar()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -44,7 +44,7 @@ class SourcePhpScriptTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_template_class_doc_var_no_template()
+    public function testGetTemplateClassDocVarNoTemplate()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -53,7 +53,7 @@ class SourcePhpScriptTest extends TestCase
         $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
     }
 
-    public function test_get_template_class_doc_var_template_unknown()
+    public function testGetTemplateClassDocVarTemplateUnknown()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -74,7 +74,7 @@ class SourcePhpScriptTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_template_class_doc_var_template_known()
+    public function testGetTemplateClassDocVarTemplateKnown()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -84,7 +84,7 @@ class SourcePhpScriptTest extends TestCase
 
     }
 
-    public function test_strip_extension() {
+    public function testStripExtension() {
         $this->assertEquals("hello.html", SourcePhpScript::stripExtension("hello.html.php"));
     }
 

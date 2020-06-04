@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty;
+namespace test\edwrodrig\staty_core;
 
 use edwrodrig\staty_core\SourceFile;
 use edwrodrig\exception_with_data\ExceptionWithData;
@@ -23,7 +23,7 @@ class SourceFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_create_from_filename()
+    public function testCreateFromFilename()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -36,7 +36,7 @@ class SourceFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_create_from_string()
+    public function testCreateFromString()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -48,7 +48,7 @@ class SourceFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_filename()
+    public function testGetFilename()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -61,7 +61,7 @@ class SourceFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_content()
+    public function testGetContent()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -71,7 +71,7 @@ class SourceFileTest extends TestCase
         $this->assertEquals("some content", $source_file->getContent());
     }
 
-    public function test_create_nonexistent_file()
+    public function testCreateNonexistentFile()
     {
         $path = $this->root->url();
         $source_filename = $path . "/nonexistent";

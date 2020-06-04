@@ -3,13 +3,13 @@
     <testsuites>
         <testsuite name="main">
             <directory>./tests</directory>
-            <directory>./modules/edwrodrig/util/tests</directory>
+            <directory>./modules/core/tests</directory>
         </testsuite>
     </testsuites>
     <filter>
        <whitelist processUncoveredFilesFromWhitelist="true">
 	    <directory suffix=".php">./src</directory>
-        <directory suffix=".php">./modules/edwrodrig/util/src</directory>
+        <directory suffix=".php">./modules/core/src</directory>
        </whitelist>
     </filter>
 </phpunit>

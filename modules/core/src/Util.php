@@ -17,7 +17,7 @@ class Util
      * @return false|string
      * @throws Throwable
      */
-    public static function output_buffer_safe(callable $callable)
+    public static function outputBufferSafe(callable $callable)
     {
         $level = ob_get_level();
         try {
@@ -37,7 +37,7 @@ class Util
      * @param string $to
      * @return string
      */
-    public static function get_relative_path(string $from, string $to) : string
+    public static function getRelativePath(string $from, string $to) : string
     {
         // some compatibility fixes for Windows paths
         $from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
@@ -72,7 +72,7 @@ class Util
      * @param string $directory_path
      * @return Generator|RecursiveDirectoryIterator[]
      */
-    public static function iterate_files_recursively(string $directory_path) : Generator {
+    public static function iterateFilesRecursively(string $directory_path) : Generator {
         $iterator = new RecursiveDirectoryIterator(
             $directory_path,
             FilesystemIterator::CURRENT_AS_SELF
