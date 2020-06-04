@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\staty;
 
-use edwrodrig\staty\SourcePhpScript;
+use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -25,8 +25,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->get_template_class());
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -37,8 +37,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::create_from_string('<?php /** @silent */', $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->get_template_class());
+        $source_file = SourcePhpScript::createFromString('<?php /** @silent */', $source_filename);
+        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -49,8 +49,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::create_from_string('<?php /** @var some $hello **/', $source_filename);
-        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->get_template_class());
+        $source_file = SourcePhpScript::createFromString('<?php /** @var some $hello **/', $source_filename);
+        $this->assertEquals("edwrodrig\staty\PageTemplate", $source_file->getTemplateClass());
     }
 
     public function test_get_template_class_doc_var_template_unknown()
@@ -59,7 +59,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
         try {
 
-            SourcePhpScript::create_from_string('<?php /** @var invalid $template **/', $source_filename);
+            SourcePhpScript::createFromString('<?php /** @var invalid $template **/', $source_filename);
             $this->fail("Should throw");
         } catch ( ExceptionWithData $exception ) {
 
@@ -79,13 +79,13 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::create_from_string('<?php /** @var test\edwrodrig\staty\DummyPageTemplate $template **/', $source_filename);
-        $this->assertEquals('test\edwrodrig\staty\DummyPageTemplate', $source_file->get_template_class());
+        $source_file = SourcePhpScript::createFromString('<?php /** @var test\edwrodrig\staty\DummyPageTemplate $template **/', $source_filename);
+        $this->assertEquals('test\edwrodrig\staty\DummyPageTemplate', $source_file->getTemplateClass());
 
     }
 
     public function test_strip_extension() {
-        $this->assertEquals("hello.html", SourcePhpScript::strip_extension("hello.html.php"));
+        $this->assertEquals("hello.html", SourcePhpScript::stripExtension("hello.html.php"));
     }
 
 }

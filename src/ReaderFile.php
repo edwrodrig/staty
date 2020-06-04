@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace edwrodrig\staty;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
+use edwrodrig\staty_core\SourceFile;
+use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\staty_core\Util;
 use Generator;
 
@@ -37,16 +39,16 @@ class ReaderFile extends Reader
      * @throws ExceptionWithData
      */
     public function read_pages() : Generator  {
-        if ( SourcePhpScript::is_php($this->filename) ) {
-            $source = SourcePhpScript::create_from_filename($this->filename);
-            $template = $source->get_template_class();
-            $relative_path = $this->get_relative_path(SourcePhpScript::strip_extension($this->filename));
+        if ( SourcePhpScript::isPhp($this->filename) ) {
+            $source = SourcePhpScript::createFromFilename($this->filename);
+            $template = $source->getTemplateClass();
+            $relative_path = $this->get_relative_path(SourcePhpScript::stripExtension($this->filename));
             $page = new $template($this->context, $relative_path, $source);
 
             $this->context->prepare($page);
             yield $page;
         } else {
-            $source = SourceFile::create_from_filename($this->filename);
+            $source = SourceFile::createFromFilename($this->filename);
             $relative_path = $this->get_relative_path($this->filename);
             $page = new Page($source, $relative_path);
 

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
+use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\staty_core\Util;
 use Throwable;
 
@@ -37,7 +38,7 @@ class PageTemplate extends Page
         $template = $this;
         return Util::output_buffer_safe(function() use($template) {
             /** @noinspection PhpIncludeInspection */
-            include $template->get_source()->get_filename();
+            include $template->get_source()->getFilename();
         });
     }
 

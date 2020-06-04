@@ -2,9 +2,10 @@
 declare(strict_types=1);
 
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
+use edwrodrig\staty\PageTemplate;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Object_;
@@ -16,8 +17,8 @@ class SourcePhpScript extends SourceFile
 
     protected function __construct(string $filename) {
         parent::__construct($filename);
-        if ( $doc_block = $this->get_doc_block() ) {
-            $this->get_template_class_from_doc_block($doc_block);
+        if ( $doc_block = $this->getDocBlock() ) {
+            $this->getTemplateClassFromDocBlock($doc_block);
         }
     }
 
@@ -29,8 +30,8 @@ class SourcePhpScript extends SourceFile
      * @api
      * @return null|DocBlock
      */
-    private function get_doc_block() : ?DocBlock {
-        $tokens = token_get_all($this->get_content());
+    private function getDocBlock() : ?DocBlock {
+        $tokens = token_get_all($this->getContent());
         foreach ($tokens as $token) {
             if ($token[0] !== T_COMMENT && $token[0] !== T_DOC_COMMENT)
                 continue;
@@ -49,7 +50,7 @@ class SourcePhpScript extends SourceFile
      * @param DocBlock $doc_block
      * @throws ExceptionWithData
      */
-    private function get_template_class_from_doc_block(DocBlock $doc_block)
+    private function getTemplateClassFromDocBlock(DocBlock $doc_block)
     {
         $template_class = '';
 
@@ -78,13 +79,13 @@ class SourcePhpScript extends SourceFile
             throw new ExceptionWithData( 'invalid template class',
                 [
                     'template_class' => $template_class,
-                    'filename' => $this->get_filename()
+                    'filename' => $this->getFilename()
                 ]
             );
         }
     }
 
-    public function get_template_class() : string {
+    public function getTemplateClass() : string {
         return $this->template_class;
     }
 
@@ -96,12 +97,12 @@ class SourcePhpScript extends SourceFile
      * @param string $filename
      * @return bool
      */
-    public static function is_php(string $filename) : bool {
+    public static function isPhp(string $filename) : bool {
         $filename = basename($filename);
         return preg_match('/\.php$/', $filename) === 1;
     }
 
-    public static function strip_extension(string $filename) : string {
+    public static function stripExtension(string $filename) : string {
         return preg_replace(
             '/\.php$/',
             '',

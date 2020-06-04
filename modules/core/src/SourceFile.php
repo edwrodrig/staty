@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty;
+namespace edwrodrig\staty_core;
 
 use edwrodrig\exception_with_data\ExceptionWithData;
 
@@ -15,10 +15,10 @@ class SourceFile extends Source
      * @return static
      * @throws ExceptionWithData
      */
-    public static function create_from_string(string $string_data, string $filename) : self {
+    public static function createFromString(string $string_data, string $filename) : self {
         @mkdir(dirname($filename), 0777, true);
         file_put_contents( $filename, $string_data);
-        return static::create_from_filename($filename);
+        return static::createFromFilename($filename);
     }
 
     /**
@@ -26,7 +26,7 @@ class SourceFile extends Source
      * @return static
      * @throws ExceptionWithData
      */
-    public static function create_from_filename(string $filename) : self {
+    public static function createFromFilename(string $filename) : self {
         return new static($filename);
     }
 
@@ -44,11 +44,11 @@ class SourceFile extends Source
         $this->filename = $filename;
     }
 
-    public function get_filename() : string {
+    public function getFilename() : string {
         return $this->filename;
     }
 
-    public function get_content() : string {
+    public function getContent() : string {
         return file_get_contents($this->filename);
     }
 }

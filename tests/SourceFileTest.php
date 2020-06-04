@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace test\edwrodrig\staty;
 
-use edwrodrig\staty\SourceFile;
+use edwrodrig\staty_core\SourceFile;
 use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -29,7 +29,7 @@ class SourceFileTest extends TestCase
         $source_filename = $path . "/file";
         file_put_contents($source_filename, "some content");
 
-        $source_file = SourceFile::create_from_filename($source_filename);
+        $source_file = SourceFile::createFromFilename($source_filename);
         $this->assertInstanceOf(SourceFile::class, $source_file);
     }
 
@@ -41,8 +41,8 @@ class SourceFileTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourceFile::create_from_string("hello", $source_filename);
-        $this->assertEquals("hello", $source_file->get_content());
+        $source_file = SourceFile::createFromString("hello", $source_filename);
+        $this->assertEquals("hello", $source_file->getContent());
     }
 
     /**
@@ -54,8 +54,8 @@ class SourceFileTest extends TestCase
         $source_filename = $path . "/file";
         file_put_contents($source_filename, "some content");
 
-        $source_file = SourceFile::create_from_filename($source_filename);
-        $this->assertEquals($source_filename, $source_file->get_filename());
+        $source_file = SourceFile::createFromFilename($source_filename);
+        $this->assertEquals($source_filename, $source_file->getFilename());
     }
 
     /**
@@ -67,8 +67,8 @@ class SourceFileTest extends TestCase
         $source_filename = $path . "/file";
         file_put_contents($source_filename, "some content");
 
-        $source_file = SourceFile::create_from_filename($source_filename);
-        $this->assertEquals("some content", $source_file->get_content());
+        $source_file = SourceFile::createFromFilename($source_filename);
+        $this->assertEquals("some content", $source_file->getContent());
     }
 
     public function test_create_nonexistent_file()
@@ -76,7 +76,7 @@ class SourceFileTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/nonexistent";
         try {
-            SourceFile::create_from_filename($source_filename);
+            SourceFile::createFromFilename($source_filename);
             $this->fail("should except");
 
         } catch (ExceptionWithData $exception) {

@@ -6,7 +6,7 @@ namespace test\edwrodrig\staty;
 use edwrodrig\staty\Context;
 use edwrodrig\staty\PageString;
 use edwrodrig\staty\PageTemplate;
-use edwrodrig\staty\SourcePhpScript;
+use edwrodrig\staty_core\SourcePhpScript;
 use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
@@ -31,7 +31,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
         $this->assertEquals("hello", $template->get_content());
     }
@@ -45,7 +45,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
         $this->assertEquals($context, $template->get_context());
     }
@@ -59,7 +59,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
         $this->assertInstanceOf(PageTemplate::class, $template);
     }
@@ -73,7 +73,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
         $this->assertEquals('output', $template->get_relative_filename());
     }
@@ -88,7 +88,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
         $this->assertTrue($template->prepare());
     }
@@ -103,7 +103,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context("path");
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "folder_1/file_1", $source_file);
 
 
@@ -121,7 +121,7 @@ class PageTemplateTest extends TestCase
         $source_filename = $path . "/file";
 
         $context = new Context("path");
-        $source_file = SourcePhpScript::create_from_string(
+        $source_file = SourcePhpScript::createFromString(
 <<<'EOF'
 <?php
 use edwrodrig\staty\PageString;
@@ -152,7 +152,7 @@ EOF
         $source_filename = $path . "/file";
 
         $context = new Context("path");
-        $source_file = SourcePhpScript::create_from_string("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "folder_1/file_1", $source_file);
 
         $page = new class("content", "folder_2/file_2") extends PageString {

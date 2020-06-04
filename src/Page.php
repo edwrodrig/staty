@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
+use edwrodrig\staty_core\Source;
+
 /**
  * Class Page
  *
@@ -35,7 +37,7 @@ class Page
      * @return string
      */
     public function get_content() : string {
-        return $this->source->get_content();
+        return $this->source->getContent();
     }
 
     public function prepare() : bool {
