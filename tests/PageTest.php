@@ -10,11 +10,11 @@ use PHPUnit\Framework\TestCase;
 class PageTest extends TestCase
 {
 
-    public function test_get_content() {
+    public function testGetContent() {
 
 	    $page = new PageString("some content", "relative");
-        $this->assertEquals("relative", $page->get_relative_filename());
-        $this->assertEquals("some content", $page->get_content());
+        $this->assertEquals("relative", $page->getRelativeFilename());
+        $this->assertEquals("some content", $page->getContent());
         $this->assertTrue($page->prepare());
     }
 

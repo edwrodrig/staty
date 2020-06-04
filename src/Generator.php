@@ -21,7 +21,7 @@ class Generator
     /**
      * @param Page[] $page_list
      */
-    public function set_page_list(array $page_list) : void {
+    public function setPageList(array $page_list) : void {
         $this->page_list = $page_list;
     }
 
@@ -30,7 +30,7 @@ class Generator
      * @return string
      * @throws ExceptionWithData
      */
-    public function prepare_output_filename(string $relative_filename) : string {
+    public function prepareOutputFilename(string $relative_filename) : string {
         $filename = $this->output_directory_path . '/' . $relative_filename;
         $directory_path = dirname($filename);
         if ( !file_exists($directory_path) )
@@ -52,8 +52,8 @@ class Generator
      */
     public function generate() {
         foreach ( $this->page_list as $page ) {
-            $filename = $this->prepare_output_filename($page->get_relative_filename());
-            file_put_contents($filename, $page->get_content());
+            $filename = $this->prepareOutputFilename($page->getRelativeFilename());
+            file_put_contents($filename, $page->getContent());
         }
     }
 }

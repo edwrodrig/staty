@@ -24,7 +24,7 @@ class ReaderDirectoryTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_read_pages()
+    public function testReadPages()
     {
         $path = $this->root->url();
         $source_filename_1 = $path . "/file_1";
@@ -40,20 +40,20 @@ class ReaderDirectoryTest extends TestCase
         /**
          * @var Page[] $pages
          */
-        $pages = iterator_to_array($reader->read_pages(), false);
+        $pages = iterator_to_array($reader->readPages(), false);
 
         $this->assertCount(2, $pages);
         $page = $pages[0];
-        $this->assertEquals("file_1", $page->get_relative_filename());
-        $this->assertEquals("some content 1" , $page->get_content());
+        $this->assertEquals("file_1", $page->getRelativeFilename());
+        $this->assertEquals("some content 1" , $page->getContent());
 
         $page = $pages[1];
-        $this->assertEquals("file_2", $page->get_relative_filename());
-        $this->assertEquals("some content 2" , $page->get_content());
+        $this->assertEquals("file_2", $page->getRelativeFilename());
+        $this->assertEquals("some content 2" , $page->getContent());
 
     }
 
-    public function test___construct_not_existent_directory()
+    public function testConstructNotExistentDirectory()
     {
         $path = $this->root->url();
 
@@ -68,7 +68,7 @@ class ReaderDirectoryTest extends TestCase
         }
     }
 
-    public function test___construct_file_exists()
+    public function testConstructFileExists()
     {
         $path = $this->root->url();
         touch($path . '/file');

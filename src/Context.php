@@ -29,18 +29,18 @@ class Context
         $this->absolute_path = $absolute_path;
     }
 
-    public function get_absolute_path() : string {
+    public function getAbsolutePath() : string {
         return $this->absolute_path;
     }
 
-    public function get_lang() : string {
+    public function getLang() : string {
         $locale = setlocale(LC_ALL, "0");
         return substr($locale,0, 5);
     }
 
     public function prepare(Page $page) : bool {
-        if ( !$this->is_page_prepared($page) ) {
-            $this->prepared_page_list[$page->get_relative_filename()] = $page;
+        if ( !$this->isPagePrepared($page) ) {
+            $this->prepared_page_list[$page->getRelativeFilename()] = $page;
             $page->prepare();
             return true;
         } else {
@@ -49,19 +49,19 @@ class Context
     }
 
     /**
-     * Returns true if page exists. It is compared by their {@see Page::get_relative_filename() relative filename}
+     * Returns true if page exists. It is compared by their {@see Page::getRelativeFilename() relative filename}
      * @param Page $page
      * @return bool
      */
-    protected function is_page_prepared(Page $page) : bool {
-        $relative_filename = $page->get_relative_filename();
+    protected function isPagePrepared(Page $page) : bool {
+        $relative_filename = $page->getRelativeFilename();
         return isset($this->prepared_page_list[$relative_filename]);
     }
 
     /**
      * @return Page[]
      */
-    public function get_prepared_page_list() : array {
+    public function getPreparedPageList() : array {
         return $this->prepared_page_list;
     }
 }

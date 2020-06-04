@@ -23,21 +23,21 @@ class GeneratorTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_prepare_output_filename()
+    public function testPrepareOutputFilename()
     {
         $path = $this->root->url();
         $folder = $path . "/folder";
         $generator = new Generator($folder);
-        $filename = $generator->prepare_output_filename("hello");
+        $filename = $generator->prepareOutputFilename("hello");
         $this->assertEquals($folder . '/hello', $filename);
         $this->assertDirectoryExists($folder);
 
-        $filename = $generator->prepare_output_filename("folder/file_2");
+        $filename = $generator->prepareOutputFilename("folder/file_2");
         $this->assertEquals($folder . '/folder/file_2', $filename);
         $this->assertDirectoryExists($folder . '/folder');
     }
 
-    public function test_prepare_output_filename_file_exist()
+    public function testPrepareOutputFilenameFileExist()
     {
         $path = $this->root->url();
         $folder = $path . "/folder";
@@ -46,7 +46,7 @@ class GeneratorTest extends TestCase
 
         try {
             $generator = new Generator($folder);
-            $generator->prepare_output_filename("/existent_file/hello");
+            $generator->prepareOutputFilename("/existent_file/hello");
             $this->fail("should fail");
 
         } catch ( ExceptionWithData $exception ) {
@@ -62,7 +62,7 @@ class GeneratorTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_generate()
+    public function testGenerate()
     {
         $path = $this->root->url();
         $folder = $path . "/folder";
@@ -74,7 +74,7 @@ class GeneratorTest extends TestCase
             new PageString("content_3", "page_3")
         ];
 
-        $generator->set_page_list($pages);
+        $generator->setPageList($pages);
         $generator->generate();
 
         $this->assertFileExists($folder . '/page_1');

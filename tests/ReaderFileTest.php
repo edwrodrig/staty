@@ -23,7 +23,7 @@ class ReaderFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_read_pages()
+    public function testReadPages()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -33,18 +33,18 @@ class ReaderFileTest extends TestCase
         $reader = new ReaderFile($context, $source_filename, $path);
 
         /** @var Page[] $pages */
-        $pages = iterator_to_array($reader->read_pages(), false);
+        $pages = iterator_to_array($reader->readPages(), false);
         $this->assertCount(1, $pages);
         $page = $pages[0];
-        $this->assertEquals("file", $page->get_relative_filename());
-        $this->assertEquals("some content", $page->get_content());
+        $this->assertEquals("file", $page->getRelativeFilename());
+        $this->assertEquals("some content", $page->getContent());
 
     }
 
     /**
      * @throws ExceptionWithData
      */
-    public function test_read_pages_php()
+    public function testReadPagesPhp()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file.php";
@@ -56,16 +56,16 @@ class ReaderFileTest extends TestCase
         /**
          * @var Page[] $pages
          */
-        $pages = iterator_to_array($reader->read_pages(), false);
+        $pages = iterator_to_array($reader->readPages(), false);
         $this->assertCount(1, $pages);
         $page = $pages[0];
-        $this->assertEquals("file", $page->get_relative_filename());
-        $this->assertEquals("hello", $page->get_content());
+        $this->assertEquals("file", $page->getRelativeFilename());
+        $this->assertEquals("hello", $page->getContent());
 
 
     }
 
-    public function get_relative_path_provider() {
+    public function getRelativePathProvider() {
         return [
             ['root/b/b.php', "/home/a.php", "/home/root/b/b.php"],
             ["../../root/b/b.php", "/home/apache/a/a.php", "/home/root/b/b.php"],
@@ -81,13 +81,13 @@ class ReaderFileTest extends TestCase
     }
 
     /**
-     * @dataProvider get_relative_path_provider
+     * @dataProvider getRelativePathProvider
      * @param string $expected
      * @param string $from
      * @param string $to
      * @throws ExceptionWithData
      */
-    public function test_get_relative_path(string $expected, string $from, string $to)
+    public function testGetRelativePath(string $expected, string $from, string $to)
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -95,10 +95,10 @@ class ReaderFileTest extends TestCase
 
         $context = new Context();
         $reader = new ReaderFile($context, $source_filename, $from);
-        $this->assertEquals($expected, $reader->get_relative_path($to));
+        $this->assertEquals($expected, $reader->getRelativePath($to));
     }
 
-    public function test___construct_file_exists()
+    public function testConstructFileExists()
     {
         $path = $this->root->url();
 

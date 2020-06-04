@@ -25,7 +25,7 @@ class PageTemplateTest extends TestCase
      * @throws Throwable
      * @throws ExceptionWithData
      */
-    public function test_get_content()
+    public function testGetContent()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -33,13 +33,13 @@ class PageTemplateTest extends TestCase
         $context = new Context();
         $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
-        $this->assertEquals("hello", $template->get_content());
+        $this->assertEquals("hello", $template->getContent());
     }
 
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_context()
+    public function testGetContext()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -47,7 +47,7 @@ class PageTemplateTest extends TestCase
         $context = new Context();
         $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
-        $this->assertEquals($context, $template->get_context());
+        $this->assertEquals($context, $template->getContext());
     }
 
     /**
@@ -67,7 +67,7 @@ class PageTemplateTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function test_get_relative_filename()
+    public function testGetRelativeFilename()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -75,14 +75,14 @@ class PageTemplateTest extends TestCase
         $context = new Context();
         $source_file = SourcePhpScript::createFromString("hello", $source_filename);
         $template = new PageTemplate($context, "output", $source_file);
-        $this->assertEquals('output', $template->get_relative_filename());
+        $this->assertEquals('output', $template->getRelativeFilename());
     }
 
     /**
      * @throws Throwable
      * @throws ExceptionWithData
      */
-    public function test_prepare()
+    public function testPrepare()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -97,7 +97,7 @@ class PageTemplateTest extends TestCase
      * @throws Throwable
      * @throws ExceptionWithData
      */
-    public function test_make_page()
+    public function testMakePage()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -108,14 +108,14 @@ class PageTemplateTest extends TestCase
 
 
         $page = new PageString("hello", "folder_2/file_2");
-        $this->assertEquals("../folder_2/file_2", $template->make_page($page));
+        $this->assertEquals("../folder_2/file_2", $template->makePage($page));
     }
 
     /**
      * @throws Throwable
      * @throws ExceptionWithData
      */
-    public function test_make_page_inside_script()
+    public function testMakePageInsideScript()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -127,18 +127,18 @@ class PageTemplateTest extends TestCase
 use edwrodrig\staty\PageString;
 
 $page = new PageString("hello", "folder_2/file_2");
-$template->make_page($page);
+$template->makePage($page);
 EOF
         , $source_filename);
         $template = new PageTemplate($context, "folder_1/file_1", $source_file);
         $template->prepare();
 
-        $page_list = $context->get_prepared_page_list();
+        $page_list = $context->getPreparedPageList();
         $this->assertCount(1, $page_list);
         $this->assertArrayHasKey("folder_2/file_2", $page_list);
         $inside_file = $page_list["folder_2/file_2"];
-        $this->assertEquals("hello", $inside_file->get_content());
-        $this->assertEquals("folder_2/file_2", $inside_file->get_relative_filename());
+        $this->assertEquals("hello", $inside_file->getContent());
+        $this->assertEquals("folder_2/file_2", $inside_file->getRelativeFilename());
 
     }
 
@@ -146,7 +146,7 @@ EOF
      * @throws Throwable
      * @throws ExceptionWithData
      */
-    public function test_make_page_prepare()
+    public function testMakePagePrepare()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -170,15 +170,15 @@ EOF
         $this->assertFalse($page->prepared);
         $this->assertEquals("prepare_not_called", $page->change);
 
-        $this->assertEquals("../folder_2/file_2", $template->make_page($page));
+        $this->assertEquals("../folder_2/file_2", $template->makePage($page));
         $this->assertTrue($page->prepared);
         $this->assertEquals("prepare_called", $page->change);
 
         $page->change = "prepare_already_called";
-        $this->assertEquals("../folder_2/file_2", $template->make_page($page));
+        $this->assertEquals("../folder_2/file_2", $template->makePage($page));
 
         $this->assertTrue($page->prepared);
         $this->assertEquals("prepare_already_called", $page->change);
-        $this->assertEquals("../folder_2/file_2", $template->make_page($page));
+        $this->assertEquals("../folder_2/file_2", $template->makePage($page));
     }
 }

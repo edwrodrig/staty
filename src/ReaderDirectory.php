@@ -33,10 +33,10 @@ class ReaderDirectory extends Reader
      * @return Generator|Page[]
      * @throws ExceptionWithData
      */
-    public function read_pages() : Generator  {
+    public function readPages() : Generator  {
         foreach (Util::iterateFilesRecursively($this->directory_path) as $file ) {
             $reader = new ReaderFile($this->context, $file->getPathname(), $this->directory_path);
-            yield from $reader->read_pages();
+            yield from $reader->readPages();
         }
     }
 

@@ -38,18 +38,18 @@ class ReaderFile extends Reader
      * @return Generator|Page[]
      * @throws ExceptionWithData
      */
-    public function read_pages() : Generator  {
+    public function readPages() : Generator  {
         if ( SourcePhpScript::isPhp($this->filename) ) {
             $source = SourcePhpScript::createFromFilename($this->filename);
             $template = $source->getTemplateClass();
-            $relative_path = $this->get_relative_path(SourcePhpScript::stripExtension($this->filename));
+            $relative_path = $this->getRelativePath(SourcePhpScript::stripExtension($this->filename));
             $page = new $template($this->context, $relative_path, $source);
 
             $this->context->prepare($page);
             yield $page;
         } else {
             $source = SourceFile::createFromFilename($this->filename);
-            $relative_path = $this->get_relative_path($this->filename);
+            $relative_path = $this->getRelativePath($this->filename);
             $page = new Page($source, $relative_path);
 
             $this->context->prepare($page);
@@ -57,7 +57,7 @@ class ReaderFile extends Reader
         }
     }
 
-    public function get_relative_path(string $filename) : string {
+    public function getRelativePath(string $filename) : string {
         $from = $this->base_path;
         return Util::getRelativePath($from, $filename);
     }

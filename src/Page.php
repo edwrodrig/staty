@@ -27,7 +27,7 @@ class Page
      * It is useful to
      * @return string
      */
-    public function get_relative_filename(): string
+    public function getRelativeFilename(): string
     {
         return $this->relative_filename;
     }
@@ -36,7 +36,7 @@ class Page
      * Return the contents of the page to be generated
      * @return string
      */
-    public function get_content() : string {
+    public function getContent() : string {
         return $this->source->getContent();
     }
 

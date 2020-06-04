@@ -23,22 +23,22 @@ class PageTemplate extends Page
 
     }
 
-    public function get_context() : Context {
+    public function getContext() : Context {
         return $this->context;
     }
 
-    protected function get_source() : SourcePhpScript {
+    protected function getSource() : SourcePhpScript {
         return $this->source;
     }
 
     /**
      * @throws Throwable
      */
-    public function get_content() : string {
+    public function getContent() : string {
         $template = $this;
         return Util::outputBufferSafe(function() use($template) {
             /** @noinspection PhpIncludeInspection */
-            include $template->get_source()->getFilename();
+            include $template->getSource()->getFilename();
         });
     }
 
@@ -47,7 +47,7 @@ class PageTemplate extends Page
      * @throws Throwable
      */
     public function prepare() : bool {
-        $this->get_content();
+        $this->getContent();
         return true;
     }
 
@@ -55,10 +55,10 @@ class PageTemplate extends Page
      * @param Page $page
      * @return string the relative url of the new page
      */
-    public function make_page(Page $page) : string {
+    public function makePage(Page $page) : string {
         $this->context->prepare($page);
-        $from = $this->context->get_absolute_path() . '/' . $this->get_relative_filename();
-        $to = $this->context->get_absolute_path() . '/' . $page->get_relative_filename();
+        $from = $this->context->getAbsolutePath() . '/' . $this->getRelativeFilename();
+        $to = $this->context->getAbsolutePath() . '/' . $page->getRelativeFilename();
         return Util::getRelativePath($from, $to);
     }
 }

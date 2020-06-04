@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ContextTest extends TestCase
 {
 
-    public function test_prepare()
+    public function testPrepare()
     {
         $page = new class("content", "some_file") extends PageString {
 
@@ -32,26 +32,26 @@ class ContextTest extends TestCase
         $this->assertFalse($context->prepare($page));
         $this->assertFalse($page->prepared);
 
-        $page_list = $context->get_prepared_page_list();
+        $page_list = $context->getPreparedPageList();
         $this->assertCount(1, $page_list);
-        $this->assertEquals($page, $page_list[$page->get_relative_filename()]);
+        $this->assertEquals($page, $page_list[$page->getRelativeFilename()]);
     }
 
-    public function test_get_absolute_path()
+    public function testGetAbsolutePath()
     {
         $context = new Context('something');
-        $this->assertEquals("something", $context->get_absolute_path());
+        $this->assertEquals("something", $context->getAbsolutePath());
     }
 
 
-    public function test_get_lang()
+    public function testGetLang()
     {
         $context = new Context();
         setlocale(LC_ALL, 'es_CL.utf-8');
-        $this->assertEquals('es_CL', $context->get_lang());
+        $this->assertEquals('es_CL', $context->getLang());
 
         setlocale(LC_ALL, 'en_US.utf-8');
-        $this->assertEquals('en_US', $context->get_lang());
+        $this->assertEquals('en_US', $context->getLang());
 
     }
 }
