@@ -29,7 +29,7 @@ class ReaderDirectory extends Reader
     }
 
     /**
-     * @return \edwrodrig\staty_core\Generator|Page[]
+     * @return Generator|Page[]
      * @throws ExceptionWithData
      */
     public function readPages() : Generator  {

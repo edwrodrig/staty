@@ -11,6 +11,22 @@ Esta librería reemplaza mi [antiguo proyecto](https://github.com/edwrodrig/stat
 [![Code Climate](https://codeclimate.com/github/edwrodrig/staty/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/staty)
 ![Hecho en Chile](https://img.shields.io/badge/country-Chile-red)
 
+## Uso
+```php
+use edwrodrig\staty_core\Context;
+use edwrodrig\staty_core\ReaderDirectory;
+use edwrodrig\staty_core\Generator;
+
+$context = new Context('web/path');
+
+$reader = new ReaderDirectory($context, 'pages');
+$pages = iterator_to_array($reader->readPages(), false);
+
+$generator = new Generator('www');
+$generator->setPageList($pages);
+$generator->generate();
+```
+
 ## Mis casos de uso
 
  * Facilidad para migrar sitios HTML/PHP existentes.
