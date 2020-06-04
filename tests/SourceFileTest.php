@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace test\edwrodrig\staty;
 
 use edwrodrig\staty\SourceFile;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class SourceFileTest extends TestCase
 
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_create_from_filename()
     {
@@ -34,7 +34,7 @@ class SourceFileTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_create_from_string()
     {
@@ -46,7 +46,7 @@ class SourceFileTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_filename()
     {
@@ -59,7 +59,7 @@ class SourceFileTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_content()
     {
@@ -79,13 +79,9 @@ class SourceFileTest extends TestCase
             SourceFile::create_from_filename($source_filename);
             $this->fail("should except");
 
-        } catch (Exception $exception) {
-            $this->assertEquals([
-                'message' => 'source file does not exists',
-                'data' => [
-                    'filename' => $source_filename
-                ],
-            ], $exception->get_structured_data());
+        } catch (ExceptionWithData $exception) {
+            $this->assertEquals('source file does not exists', $exception->getMessage());
+            $this->assertEquals(['filename' => $source_filename], $exception->getData());
         }
 
     }

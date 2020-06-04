@@ -6,7 +6,7 @@ namespace test\edwrodrig\staty;
 use edwrodrig\staty\Context;
 use edwrodrig\staty\Page;
 use edwrodrig\staty\ReaderDirectory;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -22,7 +22,7 @@ class ReaderDirectoryTest extends TestCase
 
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_read_pages()
     {
@@ -62,13 +62,9 @@ class ReaderDirectoryTest extends TestCase
             new ReaderDirectory($context, $path . '/not_existent');
             $this->fail("should throw");
 
-        } catch ( Exception $exception ) {
-            $this->assertEquals([
-                'message' => 'directory does not exists',
-                'data' => [
-                    'directory_path' => 'vfs://root/not_existent'
-                ]
-            ], $exception->get_structured_data());
+        } catch ( ExceptionWithData $exception ) {
+            $this->assertEquals('directory does not exists', $exception->getMessage());
+            $this->assertEquals(['directory_path' => 'vfs://root/not_existent'], $exception->getData());
         }
     }
 
@@ -82,13 +78,9 @@ class ReaderDirectoryTest extends TestCase
             new ReaderDirectory($context, $path . '/file');
             $this->fail("should throw");
 
-        } catch ( Exception $exception ) {
-            $this->assertEquals([
-                'message' => 'directory path is a file',
-                'data' => [
-                    'directory_path' => 'vfs://root/file'
-                ]
-            ], $exception->get_structured_data());
+        } catch ( ExceptionWithData $exception ) {
+            $this->assertEquals('directory path is a file', $exception->getMessage());
+            $this->assertEquals(['directory_path' => 'vfs://root/file'], $exception->getData());
         }
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Object_;
@@ -47,7 +47,7 @@ class SourcePhpScript extends SourceFile
      *
      * Determine the template class of the processing
      * @param DocBlock $doc_block
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     private function get_template_class_from_doc_block(DocBlock $doc_block)
     {
@@ -75,13 +75,12 @@ class SourcePhpScript extends SourceFile
             $this->template_class = $template_class;
 
         } else {
-            throw Exception::create([
-                'message' => 'invalid template class',
-                'data' => [
+            throw new ExceptionWithData( 'invalid template class',
+                [
                     'template_class' => $template_class,
                     'filename' => $this->get_filename()
                 ]
-            ]);
+            );
         }
     }
 

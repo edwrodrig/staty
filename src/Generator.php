@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 
 class Generator
 {
@@ -28,7 +28,7 @@ class Generator
     /**
      * @param string $relative_filename
      * @return string
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function prepare_output_filename(string $relative_filename) : string {
         $filename = $this->output_directory_path . '/' . $relative_filename;
@@ -37,20 +37,18 @@ class Generator
             mkdir($directory_path, 0777, true);
 
         if ( !is_dir($directory_path) )
-            throw Exception::create([
-                'message' => 'target directory is not a directory',
-                'data' => [
+            throw new ExceptionWithData('target directory is not a directory',
+                [
                     'relative_filename' => $relative_filename,
                     'directory_path' => $directory_path,
                     'output_directory_path' => $this->output_directory_path
-                ]
-            ]);
+                ]);
 
         return $filename;
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function generate() {
         foreach ( $this->page_list as $page ) {

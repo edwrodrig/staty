@@ -6,8 +6,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="edwrodrig/staty" />
       <sourceFolder url="file://$MODULE_DIR$/modules/edwrodrig/util/src" isTestSource="false" packagePrefix="edwrodrig/util" />
       <sourceFolder url="file://$MODULE_DIR$/modules/edwrodrig/util/tests" isTestSource="true" packagePrefix="test/edwrodrig/util" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/core/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/core/tests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/edwrodrig/exception_with_data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mikey179/vfsstream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phar-io/manifest" />

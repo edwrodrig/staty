@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace test\edwrodrig\staty;
 
 use edwrodrig\staty\SourcePhpScript;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ class SourcePhpScriptTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_template_class_no_doc()
     {
@@ -30,7 +30,7 @@ class SourcePhpScriptTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_template_class_doc_no_var()
     {
@@ -42,7 +42,7 @@ class SourcePhpScriptTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_template_class_doc_var_no_template()
     {
@@ -61,19 +61,18 @@ class SourcePhpScriptTest extends TestCase
 
             SourcePhpScript::create_from_string('<?php /** @var invalid $template **/', $source_filename);
             $this->fail("Should throw");
-        } catch ( Exception $exception ) {
+        } catch ( ExceptionWithData $exception ) {
+
+            $this->assertEquals('invalid template class', $exception->getMessage());
             $this->assertEquals([
-                'message' => 'invalid template class',
-                'data' => [
                     'filename' => $source_filename,
                     'template_class' => 'invalid'
-                ]
-            ], $exception->get_structured_data());
+                ], $exception->getData());
         }
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_template_class_doc_var_template_known()
     {

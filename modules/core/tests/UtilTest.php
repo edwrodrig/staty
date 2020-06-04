@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\util;
+namespace test\edwrodrig\staty_core;
 
-use edwrodrig\util\Exception;
-use edwrodrig\util\Util;
+use edwrodrig\exception_with_data\ExceptionWithData;
+use edwrodrig\staty_core\Util;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
@@ -28,10 +28,10 @@ class UtilTest extends TestCase
      */
     public function test_output_buffer_safe_exception()
     {
-        $this->expectException(Exception::class);
+        $this->expectException(ExceptionWithData::class);
         $this->expectExceptionMessage("hello exception");
         Util::output_buffer_safe(function () {
-            throw new Exception(["message" => "hello exception"]);
+            throw new ExceptionWithData(["message" => "hello exception"]);
         });
 
     }

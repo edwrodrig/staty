@@ -5,7 +5,7 @@ namespace test\edwrodrig\staty;
 
 use edwrodrig\staty\Generator;
 use edwrodrig\staty\PageString;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class GeneratorTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_prepare_output_filename()
     {
@@ -49,20 +49,18 @@ class GeneratorTest extends TestCase
             $generator->prepare_output_filename("/existent_file/hello");
             $this->fail("should fail");
 
-        } catch ( Exception $exception ) {
+        } catch ( ExceptionWithData $exception ) {
+            $this->assertEquals('target directory is not a directory', $exception->getMessage());
             $this->assertEquals([
-                'message' => 'target directory is not a directory',
-                    'data' => [
                         'relative_filename' => '/existent_file/hello',
                         'directory_path' => 'vfs://root/folder//existent_file',
                         'output_directory_path' => 'vfs://root/folder'
-                    ]
-            ], $exception->get_structured_data());
+                    ], $exception->getData());
         }
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_generate()
     {

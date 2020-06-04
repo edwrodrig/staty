@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Util;
+use edwrodrig\staty_core\Util;
 use Throwable;
 
 /**

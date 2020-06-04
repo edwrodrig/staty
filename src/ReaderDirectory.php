@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Exception;
-use edwrodrig\util\Util;
+use edwrodrig\exception_with_data\ExceptionWithData;
+use edwrodrig\staty_core\Util;
 use Generator;
 
 class ReaderDirectory extends Reader
@@ -15,29 +15,23 @@ class ReaderDirectory extends Reader
      * ReaderFile constructor.
      * @param Context $context
      * @param string $directory_path
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function __construct(Context $context, string $directory_path) {
         parent::__construct($context);
-        if ( is_file($directory_path) ) throw Exception::create([
-           'message' => 'directory path is a file',
-           'data' => [
-                'directory_path' => $directory_path
-           ]
+        if ( is_file($directory_path) )
+            throw new ExceptionWithData(
+    'directory path is a file', ['directory_path' => $directory_path ]);
+        if ( !is_dir($directory_path) )
+            throw new ExceptionWithData(
+            'directory does not exists', [ 'directory_path' => $directory_path]);
 
-        ]);
-        if ( !is_dir($directory_path) ) throw Exception::create([
-            'message' => 'directory does not exists',
-            'data' => [
-                'directory_path' => $directory_path
-            ]
-        ]);
         $this->directory_path = $directory_path;
     }
 
     /**
      * @return Generator|Page[]
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function read_pages() : Generator  {
         foreach ( Util::iterate_files_recursively($this->directory_path) as $file ) {

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 
 class SourceFile extends Source
 {
@@ -13,7 +13,7 @@ class SourceFile extends Source
      * @param string $string_data
      * @param string $filename
      * @return static
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public static function create_from_string(string $string_data, string $filename) : self {
         @mkdir(dirname($filename), 0777, true);
@@ -24,7 +24,7 @@ class SourceFile extends Source
     /**
      * @param string $filename
      * @return static
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public static function create_from_filename(string $filename) : self {
         return new static($filename);
@@ -33,15 +33,14 @@ class SourceFile extends Source
     /**
      * SourceFile constructor.
      * @param string $filename
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     protected function __construct(string $filename) {
-        if ( !file_exists($filename) ) throw Exception::create([
-            'message' => 'source file does not exists',
-            'data' => [
+        if ( !file_exists($filename) ) throw new ExceptionWithData( 'source file does not exists',
+            [
                 'filename' => $filename
             ]
-        ]);
+        );
         $this->filename = $filename;
     }
 

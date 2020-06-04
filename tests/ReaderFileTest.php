@@ -6,7 +6,7 @@ namespace test\edwrodrig\staty;
 use edwrodrig\staty\Context;
 use edwrodrig\staty\Page;
 use edwrodrig\staty\ReaderFile;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class ReaderFileTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_read_pages()
     {
@@ -42,7 +42,7 @@ class ReaderFileTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_read_pages_php()
     {
@@ -85,7 +85,7 @@ class ReaderFileTest extends TestCase
      * @param string $expected
      * @param string $from
      * @param string $to
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_relative_path(string $expected, string $from, string $to)
     {
@@ -107,13 +107,9 @@ class ReaderFileTest extends TestCase
             new ReaderFile($context, $path . '/file');
             $this->fail("should throw");
 
-        } catch ( Exception $exception ) {
-            $this->assertEquals([
-                'message' => 'filename does not exists',
-                'data' => [
-                    'filename' => 'vfs://root/file'
-                ]
-            ], $exception->get_structured_data());
+        } catch ( ExceptionWithData $exception ) {
+            $this->assertEquals('filename does not exists', $exception->getMessage());
+            $this->assertEquals(['filename' => 'vfs://root/file'], $exception->getData());
         }
     }
 }

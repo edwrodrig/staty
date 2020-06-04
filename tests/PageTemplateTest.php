@@ -7,7 +7,7 @@ use edwrodrig\staty\Context;
 use edwrodrig\staty\PageString;
 use edwrodrig\staty\PageTemplate;
 use edwrodrig\staty\SourcePhpScript;
-use edwrodrig\util\Exception;
+use edwrodrig\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ class PageTemplateTest extends TestCase
 
     /**
      * @throws Throwable
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_content()
     {
@@ -37,7 +37,7 @@ class PageTemplateTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_context()
     {
@@ -51,7 +51,7 @@ class PageTemplateTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test__construct()
     {
@@ -65,7 +65,7 @@ class PageTemplateTest extends TestCase
     }
 
     /**
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_get_relative_filename()
     {
@@ -80,7 +80,7 @@ class PageTemplateTest extends TestCase
 
     /**
      * @throws Throwable
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_prepare()
     {
@@ -95,7 +95,7 @@ class PageTemplateTest extends TestCase
 
     /**
      * @throws Throwable
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_make_page()
     {
@@ -113,7 +113,7 @@ class PageTemplateTest extends TestCase
 
     /**
      * @throws Throwable
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_make_page_inside_script()
     {
@@ -144,7 +144,7 @@ EOF
 
     /**
      * @throws Throwable
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function test_make_page_prepare()
     {

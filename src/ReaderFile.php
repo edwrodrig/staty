@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace edwrodrig\staty;
 
-use edwrodrig\util\Exception;
-use edwrodrig\util\Util;
+use edwrodrig\exception_with_data\ExceptionWithData;
+use edwrodrig\staty_core\Util;
 use Generator;
 
 class ReaderFile extends Reader
@@ -17,16 +17,15 @@ class ReaderFile extends Reader
      * @param Context $context
      * @param string $filename
      * @param string $base_path
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function __construct(Context $context, string $filename, string $base_path = '') {
         parent::__construct($context);
-        if ( !is_file($filename) ) throw Exception::create([
-            'message' => 'filename does not exists',
-            'data' => [
+        if ( !is_file($filename) )  throw new ExceptionWithData( 'filename does not exists',
+            [
                 'filename' => $filename
             ]
-        ]);
+        );
         $this->filename = $filename;
         $this->base_path = $base_path;
 
@@ -35,7 +34,7 @@ class ReaderFile extends Reader
 
     /**
      * @return Generator|Page[]
-     * @throws Exception
+     * @throws ExceptionWithData
      */
     public function read_pages() : Generator  {
         if ( SourcePhpScript::is_php($this->filename) ) {

@@ -1,4 +1,4 @@
-wp
+*.swp
 /.phpunit.result.cache
 /composer.lock
 /composer.phar
@@ -7,11 +7,8 @@ wp
 !/.idea/dictionaries
 /.idea/dictionaries/*
 !/.idea/dictionaries/common.xml
-!/.idea/php.xml
 !/.idea/runConfigurations
 !/.idea/fileTemplates
 !/.idea/file.template.settings.xml
 !/.idea/modules.xml
 !/.idea/staty.iml
-!/.idea/php-test-framework.xml
-
