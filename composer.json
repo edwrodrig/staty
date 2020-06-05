@@ -28,8 +28,8 @@
     },
     "autoload-dev" : {
         "psr-4" : {
-            "test\\edwrodrig\\staty\\" : "tests/",
-            "test\\edwrodrig\\staty_core\\" : "modules/core/tests/"
+            "test\\edwrodrig\\staty\\" : "test/",
+            "test\\edwrodrig\\staty_core\\" : "modules/core/test/"
         },
         "files" : [
             "modules/core/src/PageTemplateDummy.php"
@@ -40,7 +40,8 @@
             "/.git",
             "/.idea",
             "/scripts",
-            "/tests",
+            "/modules/core/test",
+            "/test",
             "/.gitignore",
             "/.phpunit.result.cache",
             "/phpunit.xml.dist",

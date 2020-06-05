@@ -16,7 +16,7 @@ before_script:
   - git config --global user.email travis@example.com
 
 script:
-  # run test suite directories in parallel using GNU parallel
+  # run test2 suite directories in parallel using GNU parallel
   - vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
