@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty_core;
+namespace labo86\staty_core;
 
 use Throwable;
 
 /**
  * Class PageTemplate
- * @package edwrodrig\staty
+ * @package labo86\staty
  * @property SourcePhpScript source
  */
 class PageTemplate extends Page

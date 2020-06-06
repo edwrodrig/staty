@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty_core;
+namespace test\labo86\staty_core;
 
-use edwrodrig\staty_core\Context;
-use edwrodrig\staty_core\PageString;
+use labo86\staty_core\Context;
+use labo86\staty_core\PageString;
 use PHPUnit\Framework\TestCase;
 
 class ContextTest extends TestCase

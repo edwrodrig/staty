@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty_core;
+namespace test\labo86\staty_core;
 
-use edwrodrig\staty_core\SourceString;
+use labo86\staty_core\SourceString;
 use PHPUnit\Framework\TestCase;
 
 class SourceStringTest extends TestCase

@@ -1,9 +1,9 @@
 {
-    "name": "edwrodrig/staty",
+    "name": "labo86/staty",
     "description": "Library to generate static sites",
     "authors": [
         {
-            "name": "Edwin Rodríguez León",
+            "name": "Edwin Rodríguez-León",
             "email": "edwrodrig@gmail.com",
             "homepage": "http://www.edwin.cl",
             "role": "Developer"
@@ -13,7 +13,7 @@
     "minimum-stability" : "stable",
     "require": {
         "php" : "^7.4",
-        "edwrodrig/exception_with_data" : "^1.0"
+        "labo86/exception_with_data" : "^1.0"
     },
     "require-dev" : {
         "phpunit/phpunit" : "^8.5",
@@ -21,15 +21,15 @@
     },
     "autoload" : {
         "psr-4" : {
-            "edwrodrig\\staty\\" : "src/",
-            "edwrodrig\\staty_core\\" : "modules/core/src/"
+            "labo86\\staty\\" : "src/",
+            "labo86\\staty_core\\" : "modules/core/src/"
         },
         "exclude-from-classmap": ["modules/core/src/PageTemplateDummy.php"]
     },
     "autoload-dev" : {
         "psr-4" : {
-            "test\\edwrodrig\\staty\\" : "test/",
-            "test\\edwrodrig\\staty_core\\" : "modules/core/test/"
+            "test\\labo86\\staty\\" : "test/",
+            "test\\labo86\\staty_core\\" : "modules/core/test/"
         },
         "files" : [
             "modules/core/src/PageTemplateDummy.php"

@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty_core;
+namespace test\labo86\staty_core;
 
-use edwrodrig\staty_core\Context;
-use edwrodrig\staty_core\Page;
-use edwrodrig\staty_core\ReaderDirectory;
-use edwrodrig\exception_with_data\ExceptionWithData;
+use labo86\staty_core\Context;
+use labo86\staty_core\Page;
+use labo86\staty_core\ReaderDirectory;
+use labo86\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;

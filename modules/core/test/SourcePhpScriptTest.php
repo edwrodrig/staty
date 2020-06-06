@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace test\edwrodrig\staty_core;
+namespace test\labo86\staty_core;
 
-use edwrodrig\staty_core\SourcePhpScript;
-use edwrodrig\exception_with_data\ExceptionWithData;
+use labo86\staty_core\SourcePhpScript;
+use labo86\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +26,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString("hello", $source_filename);
-        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -38,7 +38,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString('<?php /** @silent */', $source_filename);
-        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     /**
@@ -50,7 +50,7 @@ class SourcePhpScriptTest extends TestCase
         $source_filename = $path . "/file";
 
         $source_file = SourcePhpScript::createFromString('<?php /** @var some $hello **/', $source_filename);
-        $this->assertEquals("edwrodrig\staty_core\PageTemplate", $source_file->getTemplateClass());
+        $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     public function testGetTemplateClassDocVarTemplateUnknown()
@@ -79,8 +79,8 @@ class SourcePhpScriptTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/file";
 
-        $source_file = SourcePhpScript::createFromString('<?php /** @var edwrodrig\staty_core\PageTemplateDummy $template **/', $source_filename);
-        $this->assertEquals('edwrodrig\staty_core\PageTemplateDummy', $source_file->getTemplateClass());
+        $source_file = SourcePhpScript::createFromString('<?php /** @var labo86\staty_core\PageTemplateDummy $template **/', $source_filename);
+        $this->assertEquals('labo86\staty_core\PageTemplateDummy', $source_file->getTemplateClass());
 
     }
 

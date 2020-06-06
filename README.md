@@ -1,21 +1,21 @@
-edwrodrig\staty
+labo86\staty
 ========
 Una biblioteca para generar [sitios estáticos](https://en.wikipedia.org/wiki/Static_web_page).
-Esta librería reemplaza mi [antiguo proyecto](https://github.com/edwrodrig/static_generator).
+Esta librería reemplaza mi [antiguo proyecto](https://github.com/labo86/static_generator).
 
-[![Latest Stable Version](https://poser.pugx.org/edwrodrig/staty/v/stable)](https://packagist.org/packages/edwrodrig/staty)
-[![Total Downloads](https://poser.pugx.org/edwrodrig/staty/downloads)](https://packagist.org/packages/edwrodrig/staty)
-[![License](https://poser.pugx.org/edwrodrig/staty/license)](https://packagist.org/packages/edwrodrig/staty)
-[![Build Status](https://travis-ci.org/edwrodrig/staty.svg?branch=master)](https://travis-ci.org/edwrodrig/staty)
-[![codecov.io Code Coverage](https://codecov.io/gh/edwrodrig/staty/branch/master/graph/badge.svg)](https://codecov.io/github/edwrodrig/staty?branch=master)
-[![Code Climate](https://codeclimate.com/github/edwrodrig/staty/badges/gpa.svg)](https://codeclimate.com/github/edwrodrig/staty)
+[![Latest Stable Version](https://poser.pugx.org/labo86/staty/v/stable)](https://packagist.org/packages/labo86/staty)
+[![Total Downloads](https://poser.pugx.org/labo86/staty/downloads)](https://packagist.org/packages/labo86/staty)
+[![License](https://poser.pugx.org/labo86/staty/license)](https://packagist.org/packages/labo86/staty)
+[![Build Status](https://travis-ci.org/labo86/staty.svg?branch=master)](https://travis-ci.org/labo86/staty)
+[![codecov.io Code Coverage](https://codecov.io/gh/labo86/staty/branch/master/graph/badge.svg)](https://codecov.io/github/labo86/staty?branch=master)
+[![Code Climate](https://codeclimate.com/github/labo86/staty/badges/gpa.svg)](https://codeclimate.com/github/labo86/staty)
 ![Hecho en Chile](https://img.shields.io/badge/country-Chile-red)
 
 ## Uso
 ```php
-use edwrodrig\staty_core\Context;
-use edwrodrig\staty_core\ReaderDirectory;
-use edwrodrig\staty_core\Generator;
+use labo86\staty_core\Context;
+use labo86\staty_core\ReaderDirectory;
+use labo86\staty_core\Generator;
 
 $context = new Context('web/path');
 
@@ -36,11 +36,11 @@ $generator->generate();
 
 ## Instalación
 ```
-composer require edwrodrig/hapi
+composer require labo86/hapi
 ```
 
 ## Información de mi máquina de desarrollo
-Salida de [system_info.sh](https://github.com/edwrodrig/staty/blob/master/scripts/system_info.sh)
+Salida de [system_info.sh](https://github.com/labo86/staty/blob/master/scripts/system_info.sh)
 ```
 + hostnamectl
 + grep -e 'Operating System:' -e Kernel:

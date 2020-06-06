@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace edwrodrig\staty_core;
+namespace labo86\staty_core;
 
 use FilesystemIterator;
 use Generator;

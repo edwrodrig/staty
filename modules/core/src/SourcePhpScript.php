@@ -2,9 +2,9 @@
 declare(strict_types=1);
 
 
-namespace edwrodrig\staty_core;
+namespace labo86\staty_core;
 
-use edwrodrig\exception_with_data\ExceptionWithData;
+use labo86\exception_with_data\ExceptionWithData;
 use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Object_;

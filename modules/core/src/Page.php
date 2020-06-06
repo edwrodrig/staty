@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace edwrodrig\staty_core;
+namespace labo86\staty_core;
 
 /**
  * Class Page
  *
  * This class represent a page that going to be generated.
  * One page is one file
- * @package edwrodrig\staty
+ * @package labo86\staty
  */
 class Page
 {
