@@ -52,7 +52,7 @@ class SourceFile extends Source
         return file_get_contents($this->filename);
     }
 
-    public function getModificationTime() : int {
+    public function getModificationDate() : int {
         return filemtime($this->filename);
     }
 }

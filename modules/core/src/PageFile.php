@@ -43,4 +43,8 @@ class PageFile extends Page
         copy($this->source->getFilename(), $filename);
     }
 
+    public function getModificationDate(): int {
+        return $this->source->getModificationDate();
+    }
+
 }

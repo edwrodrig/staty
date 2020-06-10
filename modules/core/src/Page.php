@@ -19,6 +19,16 @@ abstract class Page
     }
 
     /**
+     * El id de la pagina. Util para identificarlas de otras. Como por ejemplo para
+     * {@see Context::prepare() preparar} páginas o {@see PageCached cachearlas}
+     * Por defecto su usa el {@see Page::getRelativeFilename() nombre relativo} como id
+     * @return string
+     */
+    public function getId() : string {
+        return $this->getRelativeFilename();
+    }
+
+    /**
      * Get the relative filename where the page is going to be generated.
      * It is useful to
      * @return string
@@ -58,6 +68,10 @@ abstract class Page
      */
     public function generate(string $filename) {
         file_put_contents($filename, $this->getContent());
+    }
+
+    public function getModificationDate() : int {
+        return PHP_INT_MAX;
     }
 
 }

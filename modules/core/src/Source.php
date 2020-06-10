@@ -8,8 +8,4 @@ abstract class Source
 {
     abstract public function getContent() : string;
 
-    public function getModificationTime() : int {
-        return PHP_INT_MAX;
-    }
-
 }

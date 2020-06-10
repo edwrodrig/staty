@@ -43,14 +43,14 @@ class Context
      * Este método debe llamarse por cada página que se desea preparar para su generación.
      * La preparación es lo que esta definido por {@see Page::prepare()}.
      * Una misma página no puede ser preparada dos veces.
-     * Se considera una misma página si tiene el mismo {@see Page::getRelativeFilename() nombre relativo}.
+     * Se considera una misma página si tiene el mismo {@see Page::getId() id}.
      * La forma de identificar
      * @param Page $page
      * @return bool true si se preparó, false si ya había sido preparada
      */
     public function prepare(Page $page) : bool {
         if ( !$this->isPagePrepared($page) ) {
-            $this->prepared_page_list[$page->getRelativeFilename()] = $page;
+            $this->prepared_page_list[$page->getId()] = $page;
             $page->prepare();
             return true;
         } else {
@@ -63,14 +63,14 @@ class Context
      * Retorna true si se ha preparado la página. Recordar que se usa {@see Page::getRelativeFilename()}
      * como identificador de la página.
      *
-     * Internamente se guarda un mapa con {@see Page::getRelativeFilename() como llave} y con eso se verifica
+     * Internamente se guarda un mapa con {@see Page::getId() como llave} y con eso se verifica
      * si una página a sido preparada o no.
      * @param Page $page
      * @return bool
      */
     protected function isPagePrepared(Page $page) : bool {
-        $relative_filename = $page->getRelativeFilename();
-        return isset($this->prepared_page_list[$relative_filename]);
+        $id = $page->getId();
+        return isset($this->prepared_page_list[$id]);
     }
 
     /**
