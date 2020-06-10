@@ -7,4 +7,9 @@ namespace labo86\staty_core;
 abstract class Source
 {
     abstract public function getContent() : string;
+
+    public function getModificationTime() : int {
+        return PHP_INT_MAX;
+    }
+
 }

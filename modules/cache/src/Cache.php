@@ -10,7 +10,12 @@ class Cache
 {
     private string $directory;
 
-    private array $usedEntryList = [];
+    private array $used_entry_id_set = [];
+
+    /**
+     * @var Entry[]
+     */
+    private array $entry_map;
 
     /**
      * Cache constructor.
@@ -29,25 +34,39 @@ class Cache
                 [ 'directory' => $this->directory]);
             }
         }
+        $this->entry_map = $this->getEntryMap();
 
     }
 
+    /**
+     * @return Entry[]
+     */
+    protected function getEntryMap() : array {
+        $entry_map = [];
+        foreach ( new DirectoryIterator($this->directory) as $file ) {
+            if ( $file->isDot() ) continue;
+            $filename = $file->getBasename();
+            $entry = Entry::createFromExistentFile($filename, $this->directory);
+            $entry_map[$entry->getId()] = $entry;
+        }
+        return $entry_map;
+    }
+
     public function getEntry(string $id) : Entry {
-        $this->usedEntryList[] = $id;
-        return new Entry($id, $this->directory);
+        $this->used_entry_id_set[$id] = true;
+        if ( !isset($this->entry_map[$id]) )
+            $this->entry_map[$id] =  new Entry($id, $this->directory);
+
+        return $this->entry_map[$id];
     }
 
     public function clearUnusedEntries() : array {
         $cleared_entry_list = [];
-        foreach ( new DirectoryIterator($this->directory) as $file ) {
-            if ( $file->isDot() ) continue;
-            $id = $file->getBasename();
-            if ( in_array($id, $this->usedEntryList ) )
+        foreach ( $this->entry_map as $id => $entry ) {
+            if ( isset($this->used_entry_id_set[$id]) )
                 continue;
-            else {
-                $cleared_entry_list[] = $id;
-                unlink($this->getEntry($id)->getFilename());
-            }
+            $cleared_entry_list[] = $id;
+            $entry->clear();
         }
         return $cleared_entry_list;
     }

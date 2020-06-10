@@ -18,6 +18,13 @@ class CacheTest extends TestCase
         $this->root = vfsStream::setup();
     }
 
+    public function assertCacheFilename(string $directory, string $expected, string $actual) {
+        $directory = preg_quote($directory);
+        $expected = preg_quote($expected);
+        $regex = "#$directory/[a-zA-Z0-9]*_$expected#";
+        $this->assertRegExp($regex, $actual);
+    }
+
     /**
      * @throws ExceptionWithData
      */
@@ -27,7 +34,9 @@ class CacheTest extends TestCase
 
         $cache = new Cache($directory);
         $entry = $cache->getEntry('hola');
-        $this->assertEquals($directory . '/hola', $entry->getFilename());
+        $this->assertTrue($entry->isExpired(10));
+        $filename = $entry->getFilename(10);
+        $this->assertCacheFilename($directory, 'hola', $filename);
     }
 
     /**
@@ -39,7 +48,9 @@ class CacheTest extends TestCase
 
         $cache = new Cache($directory);
         $entry = $cache->getEntry('hola');
-        $this->assertEquals($directory . '/hola', $entry->getFilename());
+
+        $filename = $entry->getFilename(10);
+        $this->assertCacheFilename($directory, 'hola', $filename);
         $cleared_entry_list = $cache->clearUnusedEntries();
         $this->assertEquals([], $cleared_entry_list);
     }
@@ -53,30 +64,59 @@ class CacheTest extends TestCase
 
         $cache = new Cache($directory);
         $entry = $cache->getEntry('hola');
-        $this->assertEquals($directory . '/hola', $entry->getFilename());
-        touch($entry->getFilename());
-        $this->assertFileExists($entry->getFilename());
+        $filename = $entry->getFilename(10);
+        $this->assertCacheFilename($directory, 'hola', $filename);
+
+        touch($filename);
+
+        $this->assertFileExists($entry->getFilename(10));
         $cleared_entry_list = $cache->clearUnusedEntries();
         $this->assertEquals([], $cleared_entry_list);
-        $this->assertFileExists($entry->getFilename());
+        $this->assertFileExists($entry->getFilename(10));
     }
 
     /**
      * @throws ExceptionWithData
      */
-    public function testClearUnusedOutdated() {
+    public function testClearUnusedExpired() {
         $path = $this->root->url();
         $directory = $path . "/cache";
 
         $cache = new Cache($directory);
         $entry = $cache->getEntry('hello');
-        touch($entry->getFilename());
-        $this->assertFileExists($entry->getFilename());
+        touch($entry->getFilename(10));
+        $this->assertFileExists($entry->getFilename(10));
 
         $cache = new Cache($directory);
         $cleared_entry_list = $cache->clearUnusedEntries();
         $this->assertEquals(['hello'], $cleared_entry_list);
-        $this->assertFileNotExists($entry->getFilename());
+        $this->assertFileNotExists($entry->getFilename(10));
+    }
+
+    /**
+     * @throws ExceptionWithData
+     */
+    public function testRecoverFromCached() {
+        $path = $this->root->url();
+        $directory = $path . "/cache";
+
+        $cache = new Cache($directory);
+        $entry = $cache->getEntry('hello');
+        $filename = $entry->getFilename(10);
+
+        touch($filename);
+
+        $this->assertFileExists($entry->getFilename(10));
+
+
+        $cache = new Cache($directory);
+        $entry = $cache->getEntry('hello');
+        $this->assertFalse($entry->isExpired(0));
+
+        $this->assertFalse($entry->isExpired(10));
+
+        $this->assertTrue($entry->isExpired(time() + 100));
+
     }
 
 

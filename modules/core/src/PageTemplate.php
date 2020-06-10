@@ -12,11 +12,13 @@ use Throwable;
  */
 class PageTemplate extends Page
 {
+    protected SourcePhpScript $source;
     protected Context $context;
 
 
     public function __construct(Context $context, string $relative_filename, SourcePhpScript $php_script) {
-        parent::__construct($php_script, $relative_filename);
+        parent::__construct($relative_filename);
+        $this->source = $php_script;
         $this->context = $context;
 
     }
@@ -25,18 +27,15 @@ class PageTemplate extends Page
         return $this->context;
     }
 
-    protected function getSource() : SourcePhpScript {
-        return $this->source;
-    }
-
     /**
      * @throws Throwable
      */
     public function getContent() : string {
         $template = $this;
-        return Util::outputBufferSafe(function() use($template) {
+        $source = $this->source;
+        return Util::outputBufferSafe(function() use($template, $source) {
             /** @noinspection PhpIncludeInspection */
-            include $template->getSource()->getFilename();
+            include $source->getFilename();
         });
     }
 
@@ -50,6 +49,11 @@ class PageTemplate extends Page
     }
 
     /**
+     * Esta función sirve para crear páginas dentro de una página.
+     * Lo que hace esta función es {@see Page::prepare() preparar} la página para generar una.
+     *
+     * Esta función devuelve la ruta relativa de la nueva pagina con respecto al actual.
+     * Esto se hace considerando {@see getRelativeFilename()} de ambas páginas.
      * @param Page $page
      * @return string the relative url of the new page
      */

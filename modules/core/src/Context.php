@@ -38,6 +38,16 @@ class Context
         return substr($locale,0, 5);
     }
 
+    /**
+     * Prepara una página para su posterior generación.
+     * Este método debe llamarse por cada página que se desea preparar para su generación.
+     * La preparación es lo que esta definido por {@see Page::prepare()}.
+     * Una misma página no puede ser preparada dos veces.
+     * Se considera una misma página si tiene el mismo {@see Page::getRelativeFilename() nombre relativo}.
+     * La forma de identificar
+     * @param Page $page
+     * @return bool true si se preparó, false si ya había sido preparada
+     */
     public function prepare(Page $page) : bool {
         if ( !$this->isPagePrepared($page) ) {
             $this->prepared_page_list[$page->getRelativeFilename()] = $page;
@@ -49,7 +59,12 @@ class Context
     }
 
     /**
-     * Returns true if page exists. It is compared by their {@see Page::getRelativeFilename() relative filename}
+     * Esta función se usa para determinar el retorno de la función {@see prepare()}.
+     * Retorna true si se ha preparado la página. Recordar que se usa {@see Page::getRelativeFilename()}
+     * como identificador de la página.
+     *
+     * Internamente se guarda un mapa con {@see Page::getRelativeFilename() como llave} y con eso se verifica
+     * si una página a sido preparada o no.
      * @param Page $page
      * @return bool
      */
@@ -59,6 +74,7 @@ class Context
     }
 
     /**
+     * Obtiene la lista de páginas preparadas de paginas preparadas.
      * @return Page[]
      */
     public function getPreparedPageList() : array {

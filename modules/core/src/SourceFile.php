@@ -51,4 +51,8 @@ class SourceFile extends Source
     public function getContent() : string {
         return file_get_contents($this->filename);
     }
+
+    public function getModificationTime() : int {
+        return filemtime($this->filename);
+    }
 }

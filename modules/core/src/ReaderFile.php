@@ -47,7 +47,7 @@ class ReaderFile extends Reader
         } else {
             $source = SourceFile::createFromFilename($this->filename);
             $relative_path = $this->getRelativePath($this->filename);
-            $page = new Page($source, $relative_path);
+            $page = new PageFile($source, $relative_path);
 
             $this->context->prepare($page);
             yield $page;

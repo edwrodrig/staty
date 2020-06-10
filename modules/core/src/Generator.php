@@ -53,7 +53,7 @@ class Generator
     public function generate() {
         foreach ( $this->page_list as $page ) {
             $filename = $this->prepareOutputFilename($page->getRelativeFilename());
-            file_put_contents($filename, $page->getContent());
+            $page->generate($filename);
         }
     }
 }

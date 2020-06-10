@@ -25,19 +25,46 @@ class EntryTest extends TestCase
 
         $entry = new Entry('some_id', $directory);
         $this->assertEquals('some_id', $entry->getId());
-        $this->assertEquals($directory. '/some_id', $entry->getFilename());
-        $this->assertEquals(0, $entry->getModificationTime());
+        $filename =  $entry->getFilename(10);
 
-        touch($entry->getFilename());
+        touch($filename);
 
-        $modificationTime = $entry->getModificationTime();
-        $this->assertNotEquals(0, $modificationTime);
-        $this->assertEquals($modificationTime, $entry->getModificationTime());
+        $this->assertFileExists($entry->getFilename(10));
+
+
+
+    }
+
+    public function testIsExpired() {
+        $path = $this->root->url();
+        $directory = $path;
 
         $entry = new Entry('some_id', $directory);
 
-        $this->assertEquals($modificationTime, $entry->getModificationTime());
+        $this->assertTrue($entry->isExpired(0));
+
+        $filename = $entry->getFilename(0);
+        $this->assertEquals($filename, $entry->getFilename(0), "debería ser el mismo");
+
+        $this->assertFileNotExists($filename, "es una entrada nueva, no debería existir");
+
+
+        touch($filename);
+        $this->assertFileExists($filename, "acabamos de crear un archivos");
+
+
+        $this->assertTrue($entry->isExpired(0), "no cambia la condición de expirado al crear un archivo");
+
+        $entry = new Entry('some_id', $directory);
+        $this->assertTrue($entry->isExpired(0), "pero si cambia al generar un nueva entrada para el mismo archivo");
+
+        $future_time = time() + 100;
+        $this->assertTrue($entry->isExpired($future_time), "debe haber expirado si le pasamos un tiempo futuro");
+
+        $new_filename = $entry->getFilename($future_time);
+        $this->assertNotEquals($filename, $new_filename);
     }
+
 
 
 
