@@ -4,12 +4,14 @@
         <testsuite name="main">
             <directory>./test</directory>
             <directory>./modules/core/test</directory>
+            <directory>./modules/cache/test</directory>
         </testsuite>
     </testsuites>
     <filter>
        <whitelist processUncoveredFilesFromWhitelist="true">
 	    <directory suffix=".php">./src</directory>
         <directory suffix=".php">./modules/core/src</directory>
+        <directory suffix=".php">./modules/cache/src</directory>
        </whitelist>
     </filter>
 </phpunit>
