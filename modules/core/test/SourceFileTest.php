@@ -19,32 +19,6 @@ class SourceFileTest extends TestCase
         $this->root = vfsStream::setup();
     }
 
-
-    /**
-     * @throws ExceptionWithData
-     */
-    public function testCreateFromFilename()
-    {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-        file_put_contents($source_filename, "some content");
-
-        $source_file = SourceFile::createFromFilename($source_filename);
-        $this->assertInstanceOf(SourceFile::class, $source_file);
-    }
-
-    /**
-     * @throws ExceptionWithData
-     */
-    public function testCreateFromString()
-    {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-
-        $source_file = SourceFile::createFromString("hello", $source_filename);
-        $this->assertEquals("hello", $source_file->getContent());
-    }
-
     /**
      * @throws ExceptionWithData
      */
@@ -54,7 +28,7 @@ class SourceFileTest extends TestCase
         $source_filename = $path . "/file";
         file_put_contents($source_filename, "some content");
 
-        $source_file = SourceFile::createFromFilename($source_filename);
+        $source_file = new SourceFile($source_filename);
         $this->assertEquals($source_filename, $source_file->getFilename());
     }
 
@@ -67,7 +41,7 @@ class SourceFileTest extends TestCase
         $source_filename = $path . "/file";
         file_put_contents($source_filename, "some content");
 
-        $source_file = SourceFile::createFromFilename($source_filename);
+        $source_file = new SourceFile($source_filename);
         $this->assertEquals("some content", $source_file->getContent());
     }
 
@@ -76,7 +50,7 @@ class SourceFileTest extends TestCase
         $path = $this->root->url();
         $source_filename = $path . "/nonexistent";
         try {
-            SourceFile::createFromFilename($source_filename);
+            new SourceFile($source_filename);
             $this->fail("should except");
 
         } catch (ExceptionWithData $exception) {

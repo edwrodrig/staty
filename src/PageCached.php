@@ -25,13 +25,13 @@ class PageCached extends Page
 
     public function __construct(Page $page, Cache $cache) {
         parent::__construct($page->getRelativeFilename());
-        $this->cache = $cache;
+        $this->page = $page;
 
         // el identificador de la página cacheada es la ruta relativa de la original
         $this->id = $page->getRelativeFilename();
 
         // obtenemos la entrada de cache del archivo
-        $entry = $this->cache->getEntry($this->getId());
+        $entry = $cache->getEntry($this->getId());
 
         // obtenemos el nombre que corresponde
         $this->cache_filename = $entry->getFilename($page->getModificationDate());
@@ -40,7 +40,7 @@ class PageCached extends Page
          * el nuevo relative name de esta pagina sera la entrada de cache.
          * de esta forma aparecerá la URL generada en las páginas web
          */
-        $this->relative_filename = 'cache/' . basename($this->cache_filename);
+        $this->relative_filename = 'cache/' . $this->cache_filename;
 
         /** si la entrada no está expirada
          * OJO: Notar que las página nunca llamarán directamente sus métodos {@see page::generate() }
@@ -50,15 +50,7 @@ class PageCached extends Page
          * que generar en el cache directamente, que se debe encontrar fuera de la carpeta de generación. Dejarlo adentro no tiene sentido.
          * ¿Puede el cache estar incorporado en totalidad?
          */
-        if ( !$entry->isExpired($page->getModificationDate()) ) {
-            // significa que la entrada existe
-            // creamos una página que copia un archivo desde el archivo de cache.
-            // el relative path no se usará por lo cuál se dejará vacío.
-
-            $this->page = new PageFile(SourceFile::createFromFilename($this->cache_filename), $this->relative_filename);
-        } else {
-            // en caso contrario se usa la página normalmente.
-            $page->
+        if ( $entry->isExpired($page->getModificationDate()) ) {
             $this->page = $page;
             $page->setRelativeFilename($this->relative_filename);
         }
@@ -75,14 +67,20 @@ class PageCached extends Page
     }
 
     public function prepare() : bool {
-        return $this->page->prepare();
+        if ( isset($this->page) )
+            return $this->page->prepare();
+        else
+            return true;
     }
 
     /**
      * @throws Throwable
      */
     public function getContent() : string {
-        return $this->page->getContent();
+        if ( isset($this->page) )
+            return $this->page->getContent();
+        else
+            return "";
     }
 
     /**
@@ -90,6 +88,7 @@ class PageCached extends Page
      * @param string $filename Totalmente ignorado
      */
     public function generate(string $filename) {
-        $this->page->generate($filename);
+        if ( isset($this->page) )
+            $this->page->generate($filename);
     }
 }

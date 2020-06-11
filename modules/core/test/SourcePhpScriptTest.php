@@ -64,10 +64,11 @@ class SourcePhpScriptTest extends TestCase
         } catch ( ExceptionWithData $exception ) {
 
             $this->assertEquals('invalid template class', $exception->getMessage());
-            $this->assertEquals([
-                    'filename' => $source_filename,
-                    'template_class' => 'invalid'
-                ], $exception->getData());
+            $data = $exception->getData();
+            $this->assertArrayHasKey('filename', $data);
+            $this->assertArrayHasKey('template_class', $data);
+            $this->assertEquals('invalid', $data['template_class']);
+
         }
     }
 

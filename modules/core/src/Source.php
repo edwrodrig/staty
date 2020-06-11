@@ -8,4 +8,6 @@ abstract class Source
 {
     abstract public function getContent() : string;
 
+
+    public function getModificationTime() : int { return 0; }
 }

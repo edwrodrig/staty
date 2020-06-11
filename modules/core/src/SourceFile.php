@@ -10,21 +10,10 @@ class SourceFile extends Source
     protected string $filename;
 
     /**
-     * @param string $string_data
      * @param string $filename
      * @return static
      * @throws ExceptionWithData
-     */
-    public static function createFromString(string $string_data, string $filename) : self {
-        @mkdir(dirname($filename), 0777, true);
-        file_put_contents( $filename, $string_data);
-        return static::createFromFilename($filename);
-    }
-
-    /**
-     * @param string $filename
-     * @return static
-     * @throws ExceptionWithData
+     * @deprecated
      */
     public static function createFromFilename(string $filename) : self {
         return new static($filename);
@@ -35,7 +24,7 @@ class SourceFile extends Source
      * @param string $filename
      * @throws ExceptionWithData
      */
-    protected function __construct(string $filename) {
+    public function __construct(string $filename) {
         if ( !file_exists($filename) ) throw new ExceptionWithData( 'source file does not exists',
             [
                 'filename' => $filename

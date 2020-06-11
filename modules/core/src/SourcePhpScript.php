@@ -9,16 +9,51 @@ use phpDocumentor\Reflection\DocBlock;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\Types\Object_;
 
-class SourcePhpScript extends SourceFile
+class SourcePhpScript extends Source
 {
+
+    public SourceFile $source;
 
     public string $template_class = PageTemplate::class;
 
-    protected function __construct(string $filename) {
-        parent::__construct($filename);
+    /**
+     * @param string $filename
+     * @throws ExceptionWithData
+     */
+    public static function createFromFilename(string $filename) : self {
+        return new SourcePhpScript(SourceFileTemp::createFromFilename($filename));
+    }
+
+    /**
+     * @param string $content
+     * @throws ExceptionWithData
+     */
+    public static function createFromString(string $content) : self {
+        return new SourcePhpScript(SourceFileTemp::createFromString($content));
+    }
+
+    /**
+     * SourcePhpScript constructor.
+     * @param SourceFile $source
+     * @throws ExceptionWithData
+     */
+    public function __construct(SourceFile $source) {
+        $this->source = $source;
         if ( $doc_block = $this->getDocBlock() ) {
             $this->getTemplateClassFromDocBlock($doc_block);
         }
+    }
+
+    public function getContent() : string {
+        return $this->source->getContent();
+    }
+
+    public function getFilename() : string {
+        return $this->source->getFilename();
+    }
+
+    public function getModificationTime(): int {
+        return $this->source->getModificationTime();
     }
 
     /**
