@@ -27,9 +27,9 @@ class EntryTest extends TestCase
         $this->assertEquals('some_id', $entry->getId());
         $filename =  $entry->getFilename(10);
 
-        touch($filename);
+        touch($directory.  '/' . $filename);
 
-        $this->assertFileExists($entry->getFilename(10));
+        $this->assertFileExists($directory.  '/' . $entry->getFilename(10));
 
 
 
@@ -46,11 +46,11 @@ class EntryTest extends TestCase
         $filename = $entry->getFilename(0);
         $this->assertEquals($filename, $entry->getFilename(0), "debería ser el mismo");
 
-        $this->assertFileNotExists($filename, "es una entrada nueva, no debería existir");
+        $this->assertFileNotExists($directory . '/' . $filename, "es una entrada nueva, no debería existir");
 
 
-        touch($filename);
-        $this->assertFileExists($filename, "acabamos de crear un archivos");
+        touch($directory . '/' . $filename);
+        $this->assertFileExists($directory . '/' . $filename, "acabamos de crear un archivos");
 
 
         $this->assertTrue($entry->isExpired(0), "no cambia la condición de expirado al crear un archivo");

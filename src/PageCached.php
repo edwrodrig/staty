@@ -55,10 +55,12 @@ class PageCached extends Page
             // creamos una página que copia un archivo desde el archivo de cache.
             // el relative path no se usará por lo cuál se dejará vacío.
 
-            $this->page = new PageFile(SourceFile::createFromFilename($this->cache_filename), '');
+            $this->page = new PageFile(SourceFile::createFromFilename($this->cache_filename), $this->relative_filename);
         } else {
             // en caso contrario se usa la página normalmente.
+            $page->
             $this->page = $page;
+            $page->setRelativeFilename($this->relative_filename);
         }
 
     }
@@ -84,10 +86,10 @@ class PageCached extends Page
     }
 
     /**
-     * Ignoramos totalmente el parámetro filename ya que se debe generar la salida en el cache.
+     * Se traspasa.
      * @param string $filename Totalmente ignorado
      */
     public function generate(string $filename) {
-        $this->page->generate($this->cache_filename);
+        $this->page->generate($filename);
     }
 }

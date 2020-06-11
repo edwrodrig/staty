@@ -77,4 +77,9 @@ abstract class Page
         return PHP_INT_MAX;
     }
 
+    public function setRelativeFilename(string $relative_filename)
+    {
+        $this->relative_filename = $relative_filename;
+    }
+
 }

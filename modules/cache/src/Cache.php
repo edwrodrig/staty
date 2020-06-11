@@ -10,8 +10,6 @@ class Cache
 {
     private string $directory;
 
-    private array $used_entry_id_set = [];
-
     /**
      * @var Entry[]
      */
@@ -59,21 +57,9 @@ class Cache
      * @return Entry
      */
     public function getEntry(string $id) : Entry {
-        $this->used_entry_id_set[$id] = true;
         if ( !isset($this->entry_map[$id]) )
             $this->entry_map[$id] =  new Entry($id, $this->directory);
 
         return $this->entry_map[$id];
-    }
-
-    public function clearUnusedEntries() : array {
-        $cleared_entry_list = [];
-        foreach ( $this->entry_map as $id => $entry ) {
-            if ( isset($this->used_entry_id_set[$id]) )
-                continue;
-            $cleared_entry_list[] = $id;
-            $entry->clear();
-        }
-        return $cleared_entry_list;
     }
 }

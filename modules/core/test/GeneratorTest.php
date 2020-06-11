@@ -75,7 +75,8 @@ class GeneratorTest extends TestCase
         ];
 
         $generator->setPageList($pages);
-        $generator->generate();
+        $generated_pages = $generator->generate();
+        $this->assertEquals(["page_1", "folder/page_2", "page_3"], $generated_pages);
 
         $this->assertFileExists($folder . '/page_1');
         $this->assertEquals("content_1", file_get_contents($folder . '/page_1'));
