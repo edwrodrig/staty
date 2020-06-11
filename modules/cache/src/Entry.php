@@ -11,7 +11,7 @@ class Entry
 
     private string $directory;
 
-    public function createFromExistentFile(string $current_filename, string $directory) : Entry {
+    public static function createFromExistentFile(string $current_filename, string $directory) : Entry {
 
         $id = explode('_', $current_filename, 2)[1];
         $entry = new Entry($id, $directory);

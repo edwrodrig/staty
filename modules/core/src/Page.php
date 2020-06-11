@@ -21,7 +21,10 @@ abstract class Page
     /**
      * El id de la pagina. Util para identificarlas de otras. Como por ejemplo para
      * {@see Context::prepare() preparar} páginas o {@see PageCached cachearlas}
-     * Por defecto su usa el {@see Page::getRelativeFilename() nombre relativo} como id
+     * Por defecto su usa el {@see Page::getRelativeFilename() nombre relativo} como id.
+     * En algunos casos el nombre relativo no coincide con el id.
+     * Por ejemplo en las entradas que usan {@see https://www.keycdn.com/support/what-is-cache-busting cache busting}. Diferentes nombre relativos pueden estar asociados a un mismo id.
+     * Ej: imagen.jpg => imagen_v1.jpg imagen_v2.jpg
      * @return string
      */
     public function getId() : string {
@@ -41,7 +44,7 @@ abstract class Page
     /**
      * Retorna los contenidos de la página.
      * Esta función depende mucho del contexto.
-     * Si es un archivo entonces es su contenido. Si es un script es su salidad.
+     * Si es un archivo entonces es su contenido. Si es un script es su salida
      * Si es un string es su valor.
      * @return string
      */

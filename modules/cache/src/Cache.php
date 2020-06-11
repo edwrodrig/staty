@@ -52,6 +52,12 @@ class Cache
         return $entry_map;
     }
 
+    /**
+     * Obtiene una entrada de cache.
+     * Si no existe entonces la crea.
+     * @param string $id
+     * @return Entry
+     */
     public function getEntry(string $id) : Entry {
         $this->used_entry_id_set[$id] = true;
         if ( !isset($this->entry_map[$id]) )
