@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" packagePrefix="test\labo86\staty\" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" packagePrefix="labo86\staty\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/core/src" isTestSource="false" packagePrefix="labo86\staty_core\" />
-      <sourceFolder url="file://$MODULE_DIR$/modules/core/test" isTestSource="true" packagePrefix="test\labo86\staty\" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/core/test" isTestSource="true" packagePrefix="test\labo86\staty_core\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/cache/src" isTestSource="false" packagePrefix="labo86\cache\" />
       <sourceFolder url="file://$MODULE_DIR$/modules/cache/test" isTestSource="true" packagePrefix="test\labo86\cache\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
