@@ -1,10 +1,9 @@
 {
     "name": "labo86/staty",
-    "description": "Library to generate static sites",
+    "description": "Una biblioteca para generar sitios estáticos",
     "authors": [
         {
             "name": "Edwin Rodríguez-León",
-            "email": "edwrodrig@gmail.com",
             "homepage": "http://www.edwin.cl",
             "role": "Developer"
         }
