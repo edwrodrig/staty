@@ -30,18 +30,11 @@ class PageCached extends Page
 
         /**
          * obtenemos la entrada de cache del archivo
-         * QUE PASA SI EL CACHE ES UNA ESTRUCTURA DE DIRECTORIO?
          */
-        $entry = $cache->getEntry(basename($page->getId()));
+        $entry = $cache->getEntry($page->getRelativeFilename());
 
         // obtenemos el nombre que corresponde
-        $this->cache_filename = $entry->getFilename($page->getModificationDate());
-
-        /**
-         * el nuevo relative name de esta pagina sera la entrada de cache.
-         * de esta forma aparecerá la URL generada en las páginas web
-         */
-        $this->relative_filename = 'cache/' . $this->cache_filename;
+        $this->relative_filename = $entry->getFilename($page->getModificationDate());
 
         /** si la entrada no está expirada
          * OJO: Notar que las página nunca llamarán directamente sus métodos {@see page::generate() }
@@ -52,8 +45,8 @@ class PageCached extends Page
          * ¿Puede el cache estar incorporado en totalidad?
          */
         if ( $entry->isExpired($page->getModificationDate()) ) {
-            $this->page = $page;
-            $page->setRelativeFilename($this->relative_filename);
+            $this->page = clone $page;
+            $this->page->setRelativeFilename($this->relative_filename);
         }
 
     }

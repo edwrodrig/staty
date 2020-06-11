@@ -31,10 +31,10 @@ class PageCachedTest extends TestCase
 
         $cache = new Cache($directory);
 
-        $source = new PageString("contenido", "string");
+        $source = new PageString("contenido", "cache/string");
         $page = new PageCached($source, $cache);
         $this->assertTrue($page->isExpired());
-        $filename =  $directory . '/' . $page->getRelativeFilename();
+        $filename = $directory . '/' . $page->getRelativeFilename();
         $page->generate($filename);
         $this->assertFileExists($filename);
 
@@ -42,7 +42,7 @@ class PageCachedTest extends TestCase
         $page = new PageCached($source, $cache);
         $this->assertFalse($page->isExpired());
         $new_filename =  $directory . '/' . $page->getRelativeFilename();
-        $this->assetEquals($filename, $new_filename);
+        $this->assertEquals($filename, $new_filename);
 
 
     }
