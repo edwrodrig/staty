@@ -9,5 +9,5 @@ abstract class Source
     abstract public function getContent() : string;
 
 
-    public function getModificationTime() : int { return 0; }
+    public function getModificationTime() : int { return time(); }
 }

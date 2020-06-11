@@ -69,6 +69,8 @@ class Util
     }
 
     /**
+     * Itera sobre los archivos de un directotio.
+     * Cada elemento ver los métodos de {@see DirectoryIterator}
      * @param string $directory_path
      * @return Generator|RecursiveDirectoryIterator[]
      */

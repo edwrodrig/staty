@@ -5,9 +5,14 @@ namespace labo86\cache;
 
 use DirectoryIterator;
 use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty_core\Util;
 
 class Cache
 {
+    private string $absolute_path;
+
+    private string $relative_path;
+
     private string $directory;
 
     /**
@@ -17,19 +22,23 @@ class Cache
 
     /**
      * Cache constructor.
-     * @param string $directory
+     * @param string $absolute_path
+     * @param string $relative_path
      * @throws ExceptionWithData
      */
-    public function __construct(string $directory) {
-        $this->directory = $directory;
-        if ( is_file($this->directory) )
-            throw new ExceptionWithData("cache directory is a file",
-            [ 'directory' => $directory ]);
+    public function __construct(string $absolute_path, string $relative_path = 'cache') {
+        $this->absolute_path = $absolute_path;
+        $this->relative_path = $relative_path;
 
-        if ( !file_exists($this->directory) ) {
-            if ( !mkdir($this->directory, 0777, true) ) {
+        $directory = $this->absolute_path . '/' . $this->relative_path;
+        if ( is_file($directory) )
+            throw new ExceptionWithData("cache directory is a file",
+            [ 'absolute_path' => $this->absolute_path, 'relative_path' => $this->relative_path ]);
+
+        if ( !file_exists($directory) ) {
+            if ( !mkdir($directory, 0777, true) ) {
                 throw new ExceptionWithData("error creating cache directory",
-                [ 'directory' => $this->directory]);
+                [ 'absolute_path' => $this->absolute_path, 'relative_path' => $this->relative_path ]);
             }
         }
         $this->entry_map = $this->getEntryMap();
@@ -41,10 +50,11 @@ class Cache
      */
     protected function getEntryMap() : array {
         $entry_map = [];
-        foreach ( new DirectoryIterator($this->directory) as $file ) {
+        $directory = $this->absolute_path . '/' . $this->relative_path;
+        foreach ( Util::iterateFilesRecursively($directory) as $file ) {
             if ( $file->isDot() ) continue;
-            $filename = $file->getBasename();
-            $entry = Entry::createFromExistentFile($filename, $this->directory);
+            $filename = $this->relative_path . '/' . $file->getFilename();
+            $entry = Entry::createFromExistentFile($filename);
             $entry_map[$entry->getId()] = $entry;
         }
         return $entry_map;
@@ -58,7 +68,7 @@ class Cache
      */
     public function getEntry(string $id) : Entry {
         if ( !isset($this->entry_map[$id]) )
-            $this->entry_map[$id] =  new Entry($id, $this->directory);
+            $this->entry_map[$id] =  new Entry($id);
 
         return $this->entry_map[$id];
     }

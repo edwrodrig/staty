@@ -6,6 +6,7 @@ namespace test\labo86\staty;
 use labo86\cache\Cache;
 use labo86\exception_with_data\ExceptionWithData;
 use labo86\staty\PageCached;
+use labo86\staty_core\PageString;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -24,18 +25,25 @@ class PageCachedTest extends TestCase
      */
     public function testBasic() {
         $path = $this->root->url();
-        $directory = $path . "/www/cache";
+        $directory = $path . "/www";
 
         mkdir($directory, 0777, true);
 
         $cache = new Cache($directory);
 
+        $source = new PageString("contenido", "string");
+        $page = new PageCached($source, $cache);
+        $this->assertTrue($page->isExpired());
+        $filename =  $directory . '/' . $page->getRelativeFilename();
+        $page->generate($filename);
+        $this->assertFileExists($filename);
 
-/*
-        $entry = $cache->getEntry('hola');
-        $this->assertTrue($entry->isExpired(10));
-        $filename = $entry->getFilename(10);
-        $this->assertEquals('a_hola', $filename);
-*/
+        $cache = new Cache($directory);
+        $page = new PageCached($source, $cache);
+        $this->assertFalse($page->isExpired());
+        $new_filename =  $directory . '/' . $page->getRelativeFilename();
+        $this->assetEquals($filename, $new_filename);
+
+
     }
 }

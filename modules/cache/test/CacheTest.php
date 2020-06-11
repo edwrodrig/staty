@@ -23,13 +23,13 @@ class CacheTest extends TestCase
      */
     public function testBasic() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hola');
+        $entry = $cache->getEntry('cache/hola');
         $this->assertTrue($entry->isExpired(10));
         $filename = $entry->getFilename(10);
-        $this->assertEquals('a_hola', $filename);
+        $this->assertEquals('cache/hola.a', $filename);
     }
 
     /**
@@ -37,13 +37,13 @@ class CacheTest extends TestCase
      */
     public function testClearUnusedEmpty() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hola');
+        $entry = $cache->getEntry('cache/hola');
 
         $filename = $entry->getFilename(10);
-        $this->assertEquals('a_hola', $filename);
+        $this->assertEquals('cache/hola.a', $filename);
     }
 
     /**
@@ -51,12 +51,12 @@ class CacheTest extends TestCase
      */
     public function testClearUnused() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hola');
+        $entry = $cache->getEntry('cache/hola');
         $filename = $entry->getFilename(10);
-        $this->assertEquals('a_hola', $filename);
+        $this->assertEquals('cache/hola.a', $filename);
 
         touch($directory . '/' . $filename);
 
@@ -68,10 +68,10 @@ class CacheTest extends TestCase
      */
     public function testClearUnusedExpired() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hello');
+        $entry = $cache->getEntry('cache/hello');
         touch($directory . '/' . $entry->getFilename(10));
         $this->assertFileExists($directory . '/' . $entry->getFilename(10));
 
@@ -82,10 +82,10 @@ class CacheTest extends TestCase
      */
     public function testRecoverFromCached() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hello');
+        $entry = $cache->getEntry('cache/hello');
         $filename = $entry->getFilename(10);
 
         touch($directory . '/' . $filename);
@@ -94,7 +94,7 @@ class CacheTest extends TestCase
 
 
         $cache = new Cache($directory);
-        $entry = $cache->getEntry('hello');
+        $entry = $cache->getEntry('cache/hello');
         $this->assertFalse($entry->isExpired(0));
 
         $this->assertFalse($entry->isExpired(10));
@@ -106,17 +106,17 @@ class CacheTest extends TestCase
 
     public function testCacheDirectoryFileExists() {
         $path = $this->root->url();
-        $directory = $path . "/cache";
+        $directory = $path;
 
         try {
-             touch($directory);
+             touch($directory . '/cache');
 
-             new Cache($directory);
+             new Cache($directory, 'cache');
              $this->fail('should throw');
 
         } catch (ExceptionWithData $exception) {
             $this->assertEquals("cache directory is a file", $exception->getMessage());
-            $this->assertEquals(["directory" => $directory], $exception->getData());
+            $this->assertEquals(['absolute_path' => $directory, 'relative_path' => 'cache'], $exception->getData());
         }
 
     }
@@ -134,7 +134,7 @@ class CacheTest extends TestCase
 
         } catch (ExceptionWithData $exception) {
             $this->assertEquals("error creating cache directory", $exception->getMessage());
-            $this->assertEquals(["directory" => $directory], $exception->getData());
+            $this->assertEquals(['absolute_path' => $directory, 'relative_path' => 'cache'], $exception->getData());
         }
 
     }

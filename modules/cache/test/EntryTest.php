@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace test\labo86\cache;
 
+use labo86\cache\Cache;
 use labo86\cache\Entry;
+use labo86\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -65,7 +67,26 @@ class EntryTest extends TestCase
         $this->assertNotEquals($filename, $new_filename);
     }
 
+    public function entryNameProvider()
+    {
+        return [
+            ['path/to/file', 'path/to/file.a'],
+            ['path/to/file.php', 'path/to/file.a.php'],
+            ['path/to/file.tar.gz', 'path/to/file.a.tar.gz']
+        ];
+    }
 
+    /**
+     * @dataProvider entryNameProvider
+     * @param $expected
+     * @param $actual
+     */
+    public function testEntryName(string $expected, string $actual) {
+        $entry = Entry::createFromExistentFile($actual);
+        $this->assertEquals($expected, $entry->getId());
+
+        $this->assertEquals($actual, $entry->getFilename(0));
+    }
 
 
 }

@@ -5,7 +5,6 @@ namespace labo86\staty;
 
 use labo86\cache\Cache;
 use labo86\staty_core\Page;
-use labo86\staty_core\PageFile;
 use labo86\staty_core\SourceFile;
 use Throwable;
 
@@ -25,13 +24,15 @@ class PageCached extends Page
 
     public function __construct(Page $page, Cache $cache) {
         parent::__construct($page->getRelativeFilename());
-        $this->page = $page;
 
         // el identificador de la página cacheada es la ruta relativa de la original
         $this->id = $page->getRelativeFilename();
 
-        // obtenemos la entrada de cache del archivo
-        $entry = $cache->getEntry($this->getId());
+        /**
+         * obtenemos la entrada de cache del archivo
+         * QUE PASA SI EL CACHE ES UNA ESTRUCTURA DE DIRECTORIO?
+         */
+        $entry = $cache->getEntry(basename($page->getId()));
 
         // obtenemos el nombre que corresponde
         $this->cache_filename = $entry->getFilename($page->getModificationDate());
@@ -57,6 +58,10 @@ class PageCached extends Page
 
     }
 
+    public function isExpired() : bool {
+        return isset($this->page);
+    }
+
     /**
      * En una cache entry no sirve el relative filename como Id.
      * Porque si se usa la técnica de cache busting entonces a través del tiempo existen muchos relative filenames que comparten el mismo id.
@@ -67,7 +72,7 @@ class PageCached extends Page
     }
 
     public function prepare() : bool {
-        if ( isset($this->page) )
+        if ( $this->isExpired() )
             return $this->page->prepare();
         else
             return true;
@@ -77,7 +82,7 @@ class PageCached extends Page
      * @throws Throwable
      */
     public function getContent() : string {
-        if ( isset($this->page) )
+        if ( $this->isExpired() )
             return $this->page->getContent();
         else
             return "";
@@ -88,7 +93,7 @@ class PageCached extends Page
      * @param string $filename Totalmente ignorado
      */
     public function generate(string $filename) {
-        if ( isset($this->page) )
+        if ( $this->isExpired() )
             $this->page->generate($filename);
     }
 }

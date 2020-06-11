@@ -8,21 +8,22 @@ class Entry
     private string $id;
     private int $last_modification_time;
 
-    private string $directory;
+    public static function createFromExistentFile(string $id) : Entry {
 
-    public static function createFromExistentFile(string $current_filename, string $directory) : Entry {
+        $dirname = dirname($id);
+        $basename = basename($id);
 
-        [$encoded_time, $id] = explode('_', $current_filename, 2);
-        $time = intval(base_convert($encoded_time, 32, 10));
+        $elements = explode('.', $basename, 3);
+        $time_string = array_splice($elements, 1, 1)[0];
 
-        $entry = new Entry($id, $directory);
-        $entry->last_modification_time = $time;
+        $entry = new Entry($dirname . '/' . implode('.', $elements));
+        $entry->last_modification_time = intval(base_convert($time_string, 32, 10));
+
         return $entry;
     }
 
-    public function __construct(string $id, string $directory) {
+    public function __construct(string $id) {
         $this->id = $id;
-        $this->directory = $directory;
     }
 
     public function getId() {
@@ -35,8 +36,15 @@ class Entry
     }
 
     public function getFilename(int $modification_date) : string {
+
+        $dirname = dirname($this->id);
+        $basename = basename($this->id);
+
         $current_date = max($this->last_modification_time ?? 0, $modification_date);
-        return base_convert($current_date, 10, 32) . '_' . $this->id;
+        $elements = explode('.', $basename, 2);
+        array_splice( $elements, 1, 0, base_convert($current_date, 10, 32) );
+        return $dirname . '/' . implode('.', $elements);
     }
+
 
 }

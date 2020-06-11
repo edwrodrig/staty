@@ -22,10 +22,7 @@ class SourcePhpScriptTest extends TestCase
      */
     public function testGetTemplateClassNoDoc()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-
-        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello");
         $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
@@ -34,10 +31,7 @@ class SourcePhpScriptTest extends TestCase
      */
     public function testGetTemplateClassDocNoVar()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-
-        $source_file = SourcePhpScript::createFromString('<?php /** @silent */', $source_filename);
+        $source_file = SourcePhpScript::createFromString('<?php /** @silent */');
         $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
@@ -46,20 +40,14 @@ class SourcePhpScriptTest extends TestCase
      */
     public function testGetTemplateClassDocVarNoTemplate()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-
-        $source_file = SourcePhpScript::createFromString('<?php /** @var some $hello **/', $source_filename);
+        $source_file = SourcePhpScript::createFromString('<?php /** @var some $hello **/');
         $this->assertEquals("labo86\staty_core\PageTemplate", $source_file->getTemplateClass());
     }
 
     public function testGetTemplateClassDocVarTemplateUnknown()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
         try {
-
-            SourcePhpScript::createFromString('<?php /** @var invalid $template **/', $source_filename);
+            SourcePhpScript::createFromString('<?php /** @var invalid $template **/');
             $this->fail("Should throw");
         } catch ( ExceptionWithData $exception ) {
 
@@ -77,10 +65,7 @@ class SourcePhpScriptTest extends TestCase
      */
     public function testGetTemplateClassDocVarTemplateKnown()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-
-        $source_file = SourcePhpScript::createFromString('<?php /** @var labo86\staty_core\PageTemplateDummy $template **/', $source_filename);
+        $source_file = SourcePhpScript::createFromString('<?php /** @var labo86\staty_core\PageTemplateDummy $template **/');
         $this->assertEquals('labo86\staty_core\PageTemplateDummy', $source_file->getTemplateClass());
 
     }
