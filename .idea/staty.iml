@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/modules/cache/test" isTestSource="true" packagePrefix="test\labo86\cache\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/edwrodrig/image" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/labo86/exception_with_data" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/mikey179/vfsstream" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/myclabs/deep-copy" />
