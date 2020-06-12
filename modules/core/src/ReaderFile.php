@@ -54,8 +54,8 @@ class ReaderFile extends Reader
         }
     }
 
-    public function getRelativePath(string $filename) : string {
-        $from = $this->base_path;
+    protected function getRelativePath(string $filename) : string {
+        $from = $this->base_path . '/';
         return Util::getRelativePath($from, $filename);
     }
 }

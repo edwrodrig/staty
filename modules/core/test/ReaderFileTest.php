@@ -65,39 +65,6 @@ class ReaderFileTest extends TestCase
 
     }
 
-    public function getRelativePathProvider() {
-        return [
-            ['root/b/b.php', "/home/a.php", "/home/root/b/b.php"],
-            ["../../root/b/b.php", "/home/apache/a/a.php", "/home/root/b/b.php"],
-            ["../../apache/docs/b/en/b.php", "/home/root/a/a.php", "/home/apache/docs/b/en/b.php"],
-            ["../../../../root/a/a.php", "/home/apache/docs/b/en/b.php", "/home/root/a/a.php"],
-            ["../hello.jpg", "index.html", "../hello.jpg"],
-            ["../hello.jpg", "index.html", "../hello.jpg"],
-            ["como/te/va", "hello", "hello/como/te/va"],
-            ["como/te/va", "hello/", "hello/como/te/va"],
-            ["hello/como/te/va", "", "hello/como/te/va"],
-            ["hello/como/te/va", "/", "/hello/como/te/va"]
-        ];
-    }
-
-    /**
-     * @dataProvider getRelativePathProvider
-     * @param string $expected
-     * @param string $from
-     * @param string $to
-     * @throws ExceptionWithData
-     */
-    public function testGetRelativePath(string $expected, string $from, string $to)
-    {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
-        file_put_contents($source_filename, "some content");
-
-        $context = new Context();
-        $reader = new ReaderFile($context, $source_filename, $from);
-        $this->assertEquals($expected, $reader->getRelativePath($to));
-    }
-
     public function testConstructFileExists()
     {
         $path = $this->root->url();
