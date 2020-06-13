@@ -25,18 +25,14 @@
             "labo86\\staty\\" : "src/",
             "labo86\\cache\\" : "modules/cache/src/",
             "labo86\\staty_core\\" : "modules/core/src/"
-        },
-        "exclude-from-classmap": ["modules/core/src/PageTemplateDummy.php"]
+        }
     },
     "autoload-dev" : {
         "psr-4" : {
             "test\\labo86\\staty\\" : "test/",
             "test\\labo86\\cache\\" : "modules/cache/src/",
             "test\\labo86\\staty_core\\" : "modules/core/test/"
-        },
-        "files" : [
-            "modules/core/src/PageTemplateDummy.php"
-        ]
+        }
     },
     "archive": {
         "exclude": [

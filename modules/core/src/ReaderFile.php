@@ -37,15 +37,14 @@ class ReaderFile extends Reader
      */
     public function readPages() : Generator  {
         if ( SourcePhpScript::isPhp($this->filename) ) {
-            $source = SourcePhpScript::createFromFilename($this->filename);
-            $template = $source->getTemplateClass();
+            $source = new SourceFile($this->filename);
             $relative_path = $this->getRelativePath(SourcePhpScript::stripExtension($this->filename));
-            $page = new $template($this->context, $relative_path, $source);
+            $page = new PagePhp($this->context, $relative_path, $source);
 
             $this->context->prepare($page);
             yield $page;
         } else {
-            $source = SourceFile::createFromFilename($this->filename);
+            $source = new SourceFile($this->filename);
             $relative_path = $this->getRelativePath($this->filename);
             $page = new PageFile($source, $relative_path);
 

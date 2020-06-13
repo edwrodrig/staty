@@ -9,7 +9,7 @@ use labo86\staty_core\SourceFile;
 use Throwable;
 
 /**
- * Class PageTemplate
+ * Class PagePhp
  * @package labo86\staty
  */
 class PageCached extends Page
