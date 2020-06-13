@@ -3,13 +3,11 @@ declare(strict_types=1);
 
 namespace test\labo86\staty;
 
-use labo86\exception_with_data\ExceptionWithData;
 use labo86\staty\Block;
 use labo86\staty_core\Context;
-use labo86\staty_core\PageInfo;
 use labo86\staty_core\PagePhp;
 use labo86\staty_core\PageString;
-use labo86\staty_core\SourcePhpScript;
+use labo86\staty_core\SourceFileTemp;
 use PHPUnit\Framework\TestCase;
 
 class BlockTest extends TestCase
@@ -18,8 +16,8 @@ class BlockTest extends TestCase
     public function testMakePage()
     {
         $context = new Context("path");
-        $page_info = new PageInfo($context, "folder_1/file_1", "file");
-        $block = new Block($page_info);
+        $page = new PagePhp($context, "folder_1/file_1", SourceFileTemp::createFromString(""));
+        $block = new Block($page);
 
 
         $page = new PageString("hello", "folder_2/file_2");
@@ -37,8 +35,8 @@ class BlockTest extends TestCase
     public function testMakePagePrepare()
     {
         $context = new Context("path");
-        $page_info = new PageInfo($context, "folder_1/file_1", "file");
-        $block = new Block($page_info);
+        $page = new PagePhp($context, "folder_1/file_1", SourceFileTemp::createFromString(""));
+        $block = new Block($page);
 
         $page = new class("content", "folder_2/file_2") extends PageString {
 

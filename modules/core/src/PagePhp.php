@@ -28,7 +28,7 @@ class PagePhp extends Page
      * @throws Throwable
      */
     public function getContent() : string {
-        $page = new PageInfo($this->context, $this->getRelativeFilename(), $this->source->getFilename());
+        $page = $this;
         return Util::outputBufferSafe(function() use($page) {
             /** @noinspection PhpIncludeInspection */
             include $page->getSourceFilename();
@@ -56,5 +56,13 @@ class PagePhp extends Page
 
     public function getMetadata() : array {
         return $this->metadata ?? [];
+    }
+
+    public function getContext() : Context {
+        return $this->context;
+    }
+
+    public function getSourceFilename() : string {
+        return $this->source->getFilename();
     }
 }

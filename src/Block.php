@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace labo86\staty;
 
 use labo86\staty_core\Page;
-use labo86\staty_core\PageInfo;
+use labo86\staty_core\PagePhp;
 use labo86\staty_core\Util;
 
 /**
@@ -14,11 +14,11 @@ use labo86\staty_core\Util;
  */
 class Block
 {
-    protected PageInfo $page;
+    protected PagePhp $page;
     protected array $section_map = [];
     private string $current_section_name;
 
-    public function __construct(PageInfo $page) {
+    public function __construct(PagePhp $page) {
         $this->page = $page;
     }
 
