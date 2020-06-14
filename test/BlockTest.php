@@ -65,4 +65,26 @@ class BlockTest extends TestCase
         $this->assertEquals("../folder_2/file_2", $block->makePage($page));
     }
 
+    public function sprintfProvider()
+    {
+        return [
+            ["hola", "hola", []],
+            ["hola1", "hola%s", ["1"]],
+            ["", "hola%s", [null]],
+            ["hola'", "hola%s", ["'"]]
+        ];
+    }
+
+    /**
+     * @dataProvider sprintfProvider
+     * @param $expected
+     * @param $pattern
+     * @param $args
+     */
+    public function testSprintf(string $expected, string $pattern, array $args)
+    {
+        $block = new Block(Block::thisPage());
+        $this->assertEquals($expected, $block->sprintf($pattern, ...$args));
+    }
+
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace labo86\staty;
 
+use labo86\staty_core\Context;
 use labo86\staty_core\Page;
 use labo86\staty_core\PagePhp;
+use labo86\staty_core\SourceFile;
 use labo86\staty_core\Util;
 
 /**
@@ -101,5 +103,25 @@ class Block
         $from = $this->page->getContext()->getAbsolutePath() . '/' . $this->page->getRelativeFilename();
         $to = $this->page->getContext()->getAbsolutePath() . '/' . $relative_filename;
         return Util::getRelativePath($from, $to);
+    }
+
+    /**
+     * El mismo comportamiento que {@see sprintf()}
+     * pero si alguno de los elementos es nulo entonces devuelve un string vacio
+     * @param string $str
+     * @param mixed ...$args
+     * @return string
+     */
+    public function sprintf(string $str, ...$args) : string {
+        foreach ( $args as &$arg ) {
+            if ( is_null($arg) ) return "";
+            if ( is_string($arg))
+                $arg = htmlentities($arg);
+        }
+        return sprintf($str, ...$args);
+    }
+
+    public static function thisPage() : PagePhp {
+        return new PagePhp(new Context(), __FILE__, new SourceFile(__FILE__));
     }
 }
