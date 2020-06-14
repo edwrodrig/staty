@@ -4,22 +4,15 @@ declare(strict_types=1);
 namespace test\labo86\staty_core;
 
 use labo86\staty_core\Context;
-use labo86\staty_core\PageString;
 use labo86\staty_core\PagePhp;
 use labo86\staty_core\SourcePhpScript;
 use labo86\exception_with_data\ExceptionWithData;
-use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class PagePhpTest extends TestCase
 {
-    private vfsStreamDirectory $root;
 
-    public function setUp() : void {
-        $this->root = vfsStream::setup();
-    }
 
     /**
      * @throws Throwable
@@ -27,11 +20,9 @@ class PagePhpTest extends TestCase
      */
     public function testGetContent()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello");
         $template = new PagePhp($context, "output", $source_file);
         $this->assertEquals("hello", $template->getContent());
     }
@@ -41,11 +32,9 @@ class PagePhpTest extends TestCase
      */
     public function test__construct()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello");
         $template = new PagePhp($context, "output", $source_file);
         $this->assertInstanceOf(PagePhp::class, $template);
     }
@@ -55,11 +44,9 @@ class PagePhpTest extends TestCase
      */
     public function testGetRelativeFilename()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello");
         $template = new PagePhp($context, "output", $source_file);
         $this->assertEquals('output', $template->getRelativeFilename());
     }
@@ -70,11 +57,9 @@ class PagePhpTest extends TestCase
      */
     public function testPrepare()
     {
-        $path = $this->root->url();
-        $source_filename = $path . "/file";
 
         $context = new Context();
-        $source_file = SourcePhpScript::createFromString("hello", $source_filename);
+        $source_file = SourcePhpScript::createFromString("hello");
         $template = new PagePhp($context, "output", $source_file);
         $this->assertTrue($template->prepare());
     }

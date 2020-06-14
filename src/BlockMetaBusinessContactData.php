@@ -8,7 +8,6 @@ declare(strict_types=1);
  */
 
 namespace labo86\staty;
-use edwrodrig\static_generator\util\Util;
 
 /**
  * Class BlockMetaBusinessContactData

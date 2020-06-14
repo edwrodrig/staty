@@ -8,12 +8,9 @@ declare(strict_types=1);
  */
 
 namespace labo86\staty;
-use labo86\staty\BlockMetaTwitterCard;
-use edwrodrig\static_generator\util\Util;
 
 /**
  * Class TwitterCard Application
- * @package edwrodrig\static_generator\htmlt
  * @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/troubleshooting-cards
  * @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/app-card
  */

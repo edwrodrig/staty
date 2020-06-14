@@ -33,6 +33,9 @@ class PageImageTest extends TestCase
     }
 
 
+    /**
+     * @throws ExceptionWithData
+     */
     function testGetCachedFile()
     {
         $f = new PageImage(SourceFileTemp::createFromString(""), 'hola.jpg');

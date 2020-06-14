@@ -23,7 +23,7 @@ class PageFile extends Page
     /**
      * Retorna los contenidos de la página.
      * Esta función depende mucho del contexto.
-     * Si es un archivo entonces es su contenido. Si es un script es su salidad.
+     * Si es un archivo entonces es su contenido. Si es un script es su salida.
      * Si es un string es su valor.
      * @return string
      */

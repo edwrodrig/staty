@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace test\labo86\staty;
 
-use labo86\staty\AppleWebApplication;
 use labo86\staty\BlockMetaAppleWebApplication;
 use PHPUnit\Framework\TestCase;
 

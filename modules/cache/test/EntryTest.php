@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\cache;
 
-use labo86\cache\Cache;
 use labo86\cache\Entry;
-use labo86\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +23,7 @@ class EntryTest extends TestCase
 
         mkdir($directory);
 
-        $entry = new Entry('some_id', $directory);
+        $entry = new Entry('some_id');
         $this->assertEquals('some_id', $entry->getId());
         $filename =  $entry->getFilename(10);
 
@@ -41,7 +39,7 @@ class EntryTest extends TestCase
         $path = $this->root->url();
         $directory = $path;
 
-        $entry = new Entry('some_id', $directory);
+        $entry = new Entry('some_id');
 
         $this->assertTrue($entry->isExpired(0));
 
@@ -57,7 +55,7 @@ class EntryTest extends TestCase
 
         $this->assertTrue($entry->isExpired(0), "no cambia la condición de expirado al crear un archivo");
 
-        $entry = new Entry('some_id', $directory);
+        $entry = new Entry('some_id');
         $this->assertTrue($entry->isExpired(0), "pero si cambia al generar un nueva entrada para el mismo archivo");
 
         $future_time = time() + 100;

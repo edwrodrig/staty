@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace labo86\staty_core;
 
-use labo86\exception_with_data\ExceptionWithData;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
-use phpDocumentor\Reflection\Types\Object_;
-
 class SourcePhpScript extends SourceFileTemp
 {
     /**

@@ -32,7 +32,7 @@ class ReaderFile extends Reader
     }
 
     /**
-     * @return \labo86\staty_core\Generator|Page[]
+     * @return Generator|Page[]
      * @throws ExceptionWithData
      */
     public function readPages() : Generator  {

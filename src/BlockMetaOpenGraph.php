@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace labo86\staty;
 use DateTime;
-use edwrodrig\static_generator\util\Util;
 
 
 /**
@@ -188,7 +187,7 @@ class BlockMetaOpenGraph extends Block
      * Set the date of last actualization
      *
      * When the object was last updated.
-     * @param DateTime|null $update_time
+     * @param DateTime $update_time
      * @return BlockMetaOpenGraph
      */
     public function setUpdateTime(DateTime $update_time): BlockMetaOpenGraph
@@ -201,7 +200,7 @@ class BlockMetaOpenGraph extends Block
      * Set additional link
      *
      * Used to supply an additional link that shows related content to the object.
-     * @param null|string $see_also
+     * @param string $see_also
      * @return BlockMetaOpenGraph
      */
     public function setSeeAlso(string $see_also): BlockMetaOpenGraph
@@ -227,7 +226,7 @@ class BlockMetaOpenGraph extends Block
      * Set the time to live
      *
      * Seconds until this page should be re-scraped. Use this to rate limit the Facebook content crawlers. The minimum allowed value is 345600 seconds (4 days); if you set a lower value, the minimum will be used. If you do not include this tag, the ttl will be computed from the "Expires" header returned by your web server, otherwise it will default to 7 days.
-     * @param null|int $time_to_live
+     * @param int $time_to_live
      * @return BlockMetaOpenGraph
      */
     public function setTimeToLive(int $time_to_live): BlockMetaOpenGraph

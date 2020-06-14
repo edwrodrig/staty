@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\staty;
 
+use labo86\exception_with_data\ExceptionWithData;
 use labo86\staty\Block;
 use labo86\staty_core\Context;
 use labo86\staty_core\PagePhp;
@@ -13,6 +14,9 @@ use PHPUnit\Framework\TestCase;
 class BlockTest extends TestCase
 {
 
+    /**
+     * @throws ExceptionWithData
+     */
     public function testMakePage()
     {
         $context = new Context("path");
@@ -32,6 +36,9 @@ class BlockTest extends TestCase
 
     }
 
+    /**
+     * @throws ExceptionWithData
+     */
     public function testMakePagePrepare()
     {
         $context = new Context("path");
