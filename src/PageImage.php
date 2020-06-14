@@ -9,6 +9,7 @@ use edwrodrig\image\exception\InvalidSizeException;
 use edwrodrig\image\exception\WrongFormatException;
 use edwrodrig\image\Image;
 use edwrodrig\image\Size;
+use Imagick;
 use ImagickException;
 use labo86\staty_core\PageFile;
 use labo86\staty_core\SourceFile;
@@ -87,8 +88,17 @@ class PageImage extends PageFile
      *
      * Is safe to call this after {@see ImageItem::generate()}
      * @return int
+     * @throws ImagickException
      */
     public function getWidth() : int {
+        if ( !isset($this->width) ) {
+            $image = new Imagick($this->source->getFilename());
+
+            $dimension = $image->getImageGeometry();
+
+            $this->width = $dimension['width'];
+            $this->height = $dimension['height'];
+        }
         return $this->width;
     }
 
@@ -97,8 +107,10 @@ class PageImage extends PageFile
      *
      * Is safe to call this after {@see ImageItem::generate()}
      * @return int
+     * @throws ImagickException
      */
     public function getHeight() : int {
+        $this->getWidth();
         return $this->height;
     }
 

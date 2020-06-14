@@ -152,4 +152,28 @@ class PageImageTest extends TestCase
         $this->assertFileExists($filename);
 
     }
+
+    /**
+     * @throws ExceptionWithData
+     * @throws ImagickException
+     */
+    function testGetDimensionsJpg()
+    {
+        $item = new PageImage(new SourceFile(__DIR__ . '/image/rei.jpg'), 'rei.bmp');
+        $this->assertEquals(630,$item->getWidth());
+        $this->assertEquals(474, $item->getHeight());
+
+    }
+
+    /**
+     * @throws ExceptionWithData
+     * @throws ImagickException
+     */
+    function testGetDimensionsSvg()
+    {
+        $item = new PageImage(new SourceFile(__DIR__ . '/image/hw.svg'), 'rei.bmp');
+        $this->assertEquals(52,$item->getWidth());
+        $this->assertEquals(26, $item->getHeight());
+
+    }
 }
