@@ -29,7 +29,7 @@ class PageCachedTest extends TestCase
 
         mkdir($directory, 0777, true);
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
 
         $source = new PageString("contenido", "cache/string");
         $page = new PageCached($source, $cache);
@@ -38,7 +38,7 @@ class PageCachedTest extends TestCase
         $page->generate($filename);
         $this->assertFileExists($filename);
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
         $page = new PageCached($source, $cache);
         $this->assertFalse($page->isExpired());
         $new_filename =  $directory . '/' . $page->getRelativeFilename();

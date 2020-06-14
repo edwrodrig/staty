@@ -53,7 +53,7 @@ class CacheTest extends TestCase
         $path = $this->root->url();
         $directory = $path;
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
         $entry = $cache->getEntry('cache/hola');
         $filename = $entry->getFilename(10);
         $this->assertEquals('cache/hola.a', $filename);
@@ -70,7 +70,7 @@ class CacheTest extends TestCase
         $path = $this->root->url();
         $directory = $path;
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
         $entry = $cache->getEntry('cache/hello');
         touch($directory . '/' . $entry->getFilename(10));
         $this->assertFileExists($directory . '/' . $entry->getFilename(10));
@@ -84,7 +84,7 @@ class CacheTest extends TestCase
         $path = $this->root->url();
         $directory = $path;
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
         $entry = $cache->getEntry('cache/hello');
         $filename = $entry->getFilename(10);
 
@@ -93,7 +93,7 @@ class CacheTest extends TestCase
         $this->assertFileExists($directory . '/' . $entry->getFilename(10));
 
 
-        $cache = new Cache($directory);
+        $cache = new Cache($directory, "cache");
         $entry = $cache->getEntry('cache/hello');
         $this->assertFalse($entry->isExpired(0));
 
@@ -129,7 +129,7 @@ class CacheTest extends TestCase
             touch($path . '/cache');
 
 
-            new Cache($directory);
+            new Cache($directory,"cache");
             $this->fail('should throw');
 
         } catch (ExceptionWithData $exception) {

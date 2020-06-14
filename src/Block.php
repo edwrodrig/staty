@@ -80,9 +80,13 @@ class Block
      *
      * Esta función devuelve la {@see getRelativePathFromThis() ruta} relativa de la nueva pagina con respecto al actual
      * @param Page $page
+     * @param bool $cached Si esta página es cacheada o no
      * @return string the relative url of the new page
      */
-    public function makePage(Page $page) : string {
+    public function makePage(Page $page, bool $cached = false) : string {
+        if ( $cached && $this->page->getContext()->hasCache() ) {
+            $page = new PageCached($page, $this->page->getContext()->getCache());
+        }
         $this->page->getContext()->prepare($page);
         return $this->getRelativeFilenameFromThis($page->getRelativeFilename());
     }

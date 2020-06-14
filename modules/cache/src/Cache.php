@@ -13,8 +13,6 @@ class Cache
 
     private string $relative_path;
 
-    private string $directory;
-
     /**
      * @var Entry[]
      */
@@ -26,7 +24,7 @@ class Cache
      * @param string $relative_path
      * @throws ExceptionWithData
      */
-    public function __construct(string $absolute_path, string $relative_path = 'cache') {
+    public function __construct(string $absolute_path, string $relative_path = '__cache') {
         $this->absolute_path = $absolute_path;
         $this->relative_path = $relative_path;
 

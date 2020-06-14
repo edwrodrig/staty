@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace labo86\staty_core;
 
+use labo86\cache\Cache;
+
 /**
  *
  * @see https://tools.ietf.org/html/rfc3986#section-4.2
@@ -20,6 +22,8 @@ class Context
      */
     private string $absolute_path;
 
+    private Cache $cache;
+
     /**
      * @var Page[]
      */
@@ -29,6 +33,14 @@ class Context
         $this->absolute_path = $absolute_path;
     }
 
+    /**
+     * Establece un cache para que el contexto pueda ser cacheado.
+     * @param Cache $cache
+     */
+    public function setCache(Cache $cache) {
+        $this->cache = $cache;
+    }
+
     public function getAbsolutePath() : string {
         return $this->absolute_path;
     }
@@ -36,6 +48,14 @@ class Context
     public function getLang() : string {
         $locale = setlocale(LC_ALL, "0");
         return substr($locale,0, 5);
+    }
+
+    public function hasCache() : bool {
+        return isset($this->cache);
+    }
+
+    public function getCache() : Cache {
+        return $this->cache;
     }
 
     /**
