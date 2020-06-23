@@ -12,12 +12,12 @@ use Throwable;
  */
 class PagePhp extends Page
 {
-    protected SourceFile $source;
+    protected SourceFileInterface $source;
     protected Context $context;
 
     public array $metadata;
 
-    public function __construct(Context $context, string $relative_filename, SourceFile $source) {
+    public function __construct(Context $context, string $relative_filename, SourceFileInterface $source) {
         parent::__construct($relative_filename);
         $this->source = $source;
         $this->context = $context;

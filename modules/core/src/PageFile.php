@@ -12,10 +12,10 @@ namespace labo86\staty_core;
  */
 class PageFile extends Page
 {
-    protected SourceFile $source;
+    protected SourceFileInterface $source;
     protected string $relative_filename;
 
-    public function __construct(SourceFile $source, string $relative_filename) {
+    public function __construct(SourceFileInterface $source, string $relative_filename) {
         parent::__construct($relative_filename);
         $this->source = $source;
     }
