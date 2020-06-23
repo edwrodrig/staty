@@ -17,6 +17,11 @@ class PagePhp extends Page
 
     public array $metadata;
 
+    /**
+     * @var Throwable[]
+     */
+    private array $exceptions = [];
+
     public function __construct(Context $context, string $relative_filename, SourceFileInterface $source) {
         parent::__construct($relative_filename);
         $this->source = $source;
@@ -64,5 +69,32 @@ class PagePhp extends Page
 
     public function getSourceFilename() : string {
         return $this->source->getFilename();
+    }
+
+    /**
+     * Use esta función para registrar las excepciones que ocurren en una página.
+     * Las páginas no debería lanzar excepciones por lo que todo lo que lancé una excepción debería ser registrado por esta función.
+     * Es decir, en vez de
+     * <code>
+     * throw new Exception("some error");
+     * </code>
+     * use esto
+     * <code>
+     * $page->registerError(new Exception("some error"));
+     * </code>
+     *
+     * @param Throwable $throwable
+     */
+    public function registerException(Throwable $throwable) {
+        $this->exceptions[] = $throwable;
+    }
+
+    /**
+     * Obtiene la lista de excepciones registradas en la página hasta el momento.
+     * @see registerException()
+     * @return array
+     */
+    public function getExceptionList() : array {
+        return $this->exceptions;
     }
 }
