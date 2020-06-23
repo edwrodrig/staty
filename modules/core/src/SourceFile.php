@@ -5,7 +5,7 @@ namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
 
-class SourceFile extends Source
+class SourceFile extends Source implements SourceFileInterface
 {
     protected string $filename;
 
@@ -43,5 +43,10 @@ class SourceFile extends Source
 
     public function getModificationDate() : int {
         return filemtime($this->filename);
+    }
+
+    public function getMimeType(): string
+    {
+        return mime_content_type($this->filename);
     }
 }

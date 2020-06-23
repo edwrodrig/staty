@@ -12,7 +12,7 @@ use edwrodrig\image\Size;
 use Imagick;
 use ImagickException;
 use labo86\staty_core\PageFile;
-use labo86\staty_core\SourceFile;
+use labo86\staty_core\SourceFileInterface;
 
 /**
  * Class ImageItem
@@ -74,11 +74,11 @@ class PageImage extends PageFile
     /**
      * ImageItem constructor.
      *
-     * @param SourceFile $source
+     * @param SourceFileInterface $source
      * @param string $relative_filename
      * @api
      */
-    public function __construct(SourceFile $source, string $relative_filename)
+    public function __construct(SourceFileInterface $source, string $relative_filename)
     {
         parent::__construct($source, $relative_filename);
     }
