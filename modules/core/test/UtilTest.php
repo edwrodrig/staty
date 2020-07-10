@@ -65,6 +65,7 @@ class UtilTest extends TestCase
             ["../../../ws/www/ws.php", "/home/www/ws/", "/home/src/../../ws/www/ws.php"],
             ["../../../ws/www/ws.php", "/home/scripts/../modules/site/www/ws/", "/home/modules/site/src/../../ws/www/ws.php"],
             ["../../../ws/www/ws.php", "/home/edwin/Projects/mypage/scripts/../modules/site/www/ws/", "/home/edwin/Projects/mypage/modules/site/src/../../ws/www/ws.php"],
+            ["../../hola", "/home/edwin/Projects/staty/test/demouoZd0m/bundle/hola/", "/home/edwin/Projects/staty/test/demouoZd0m/hola"],
 
 
         ];

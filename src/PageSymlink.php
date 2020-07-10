@@ -18,7 +18,7 @@ class PageSymlink extends PageFile
 
     /**
      * PageSymlink constructor.
-     * @param string $target
+     * @param string $target Si es un symlink de directorio poner un / al final de target
      * @param string $link
      * @throws ExceptionWithData
      */
@@ -31,13 +31,33 @@ class PageSymlink extends PageFile
      * @throws ExceptionWithData
      */
     public function generate(string $filename) {
-        if ( file_exists($filename) || is_link($filename) )
-            unlink($filename);
+        if ( is_dir($filename)) {
+            if ( !rmdir($filename) ) {
+                throw new ExceptionWithData("error removing directory",
+                    [
+                        'filename' => $filename,
+                        'hint' => 'quizás el directorio no está vacío'
+                    ]
+                );
+            }
+        }
+        if ( file_exists($filename) || is_link($filename) ) {
+            if ( !unlink($filename) ) {
+                throw new ExceptionWithData("error unlinking existent file",
+                    [
+                        'filename' => $filename
+                    ]
+                );
+            }
+        }
 
         $from = $filename;
         $to = $this->source->getFilename();
 
         $target = Util::getRelativePath($from, $to);
+        // remover el ultimo slash si es que lo tiene, en caso contrario symlink falla
+        $filename = rtrim($filename, '/');
+
         if ( @symlink($target, $filename) === FALSE ) {
             throw new ExceptionWithData("error making symlink",
                 [
