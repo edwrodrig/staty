@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace test\labo86\staty_core;
 
+use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty_core\SourceFile;
 use labo86\staty_core\Util;
 use Exception;
 use PHPUnit\Framework\TestCase;
@@ -65,7 +67,7 @@ class UtilTest extends TestCase
             ["../../../ws/www/ws.php", "/home/www/ws/", "/home/src/../../ws/www/ws.php"],
             ["../../../ws/www/ws.php", "/home/scripts/../modules/site/www/ws/", "/home/modules/site/src/../../ws/www/ws.php"],
             ["../../../ws/www/ws.php", "/home/edwin/Projects/mypage/scripts/../modules/site/www/ws/", "/home/edwin/Projects/mypage/modules/site/src/../../ws/www/ws.php"],
-            ["../../hola", "/home/edwin/Projects/staty/test/demouoZd0m/bundle/hola/", "/home/edwin/Projects/staty/test/demouoZd0m/hola"],
+            ["../../hola", "/home/edwin/Projects/staty/test/demouoZd0m/bundle/hola/", "/home/edwin/Projects/staty/test/demouoZd0m/hola"]
 
 
         ];
@@ -106,5 +108,17 @@ class UtilTest extends TestCase
 
     public function testGetAbsolutePath(string $expected, string $actual) {
         $this->assertEquals($expected, Util::getNormalizedPath($actual), $actual);
+    }
+
+    public function testStrangeTest()  {
+        try {
+            Util::getRelativePath("../output/www/bundle/fa", "/home/edwin/Projects/imo_site/modules/site/src/../../site_res/dist/fa/");
+
+        } catch (ExceptionWithData $exception) {
+            $this->assertEquals('can\'t compare absolute with relative path', $exception->getMessage());
+            $this->assertEquals(['from' => "../output/www/bundle/fa", 'to' => "/home/edwin/Projects/imo_site/modules/site_res/dist/fa/"], $exception->getData());
+        }
+
+
     }
 }

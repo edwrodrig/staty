@@ -6,6 +6,7 @@ namespace labo86\staty_core;
 
 use FilesystemIterator;
 use Generator;
+use labo86\exception_with_data\ExceptionWithData;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Throwable;
@@ -97,9 +98,21 @@ class Util
      */
     public static function getRelativePath(string $from, string $to) : string
     {
+
         /** normalizando directorios */
         $from = Util::getNormalizedPath($from);
         $to   = Util::getNormalizedPath($to);
+
+        $first_from = $from[0] ?? '';
+        $first_to   = $to[0] ?? '';
+        // se usa xor porque solo se debe lanzar excepción cuando uno de los dos es root pero no ambos
+        if ( ($first_from == '/') xor ($first_to == '/') ) throw new ExceptionWithData(
+            "can't compare absolute with relative path",
+            [
+                'from' => $from,
+                'to' => $to
+            ]
+        );
 
 
         $from     = explode('/', $from);
