@@ -31,25 +31,6 @@ class PageSymlink extends PageFile
      * @throws ExceptionWithData
      */
     public function generate(string $filename) {
-        if ( is_dir($filename)) {
-            if ( !rmdir($filename) ) {
-                throw new ExceptionWithData("error removing directory",
-                    [
-                        'filename' => $filename,
-                        'hint' => 'quizás el directorio no está vacío'
-                    ]
-                );
-            }
-        }
-        if ( file_exists($filename) || is_link($filename) ) {
-            if ( !unlink($filename) ) {
-                throw new ExceptionWithData("error unlinking existent file",
-                    [
-                        'filename' => $filename
-                    ]
-                );
-            }
-        }
 
         $from = $filename;
         $to = $this->source->getFilename();
@@ -57,6 +38,8 @@ class PageSymlink extends PageFile
         $target = Util::getRelativePath($from, $to);
         // remover el ultimo slash si es que lo tiene, en caso contrario symlink falla
         $filename = rtrim($filename, '/');
+
+        $this->cleanTarget($filename);
 
         if ( @symlink($target, $filename) === FALSE ) {
             throw new ExceptionWithData("error making symlink",
@@ -67,6 +50,42 @@ class PageSymlink extends PageFile
                     'link' => $filename
                 ]
             );
+        }
+    }
+
+    /**
+     * Remove an existent filename
+     * @param string $filename
+     * @throws ExceptionWithData
+     */
+    public function cleanTarget(string $filename) {
+        if ( is_link($filename) ) {
+            if ( !unlink($filename) ) {
+                throw new ExceptionWithData("error unlinking symlink",
+                    [
+                        'filename' => $filename
+                    ]
+                );
+            }
+        }
+        else if ( is_dir($filename)) {
+            if ( !rmdir($filename) ) {
+                throw new ExceptionWithData("error removing directory",
+                    [
+                        'filename' => $filename,
+                        'hint' => 'quizás el directorio no está vacío'
+                    ]
+                );
+            }
+        }
+        else if ( file_exists($filename) ) {
+            if ( !unlink($filename) ) {
+                throw new ExceptionWithData("error unlinking existent file",
+                    [
+                        'filename' => $filename
+                    ]
+                );
+            }
         }
     }
 }

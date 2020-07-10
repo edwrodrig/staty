@@ -43,10 +43,26 @@ class PageSymlinkTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    function testPageSymlink2()
+    function testPageSymlinkDirExistent()
     {
         mkdir($this->path . '/hola');
         mkdir($this->path . '/bundle/hola', 0777, true);
+
+        $f = new PageSymlink($this->path . '/hola', 'bundle/hola/');
+        $f->generate($this->path . '/bundle/hola/');
+
+
+        $this->assertEquals('../../hola', readlink($this->path . '/bundle/hola'));
+    }
+
+    /**
+     * @throws ExceptionWithData
+     */
+    function testPageSymlinkSymLinkExistent()
+    {
+        mkdir($this->path . '/hola');
+        mkdir($this->path . '/bundle');
+        symlink($this->path . '/hola', $this->path . '/bundle/hola');
 
         $f = new PageSymlink($this->path . '/hola', 'bundle/hola/');
         $f->generate($this->path . '/bundle/hola/');
