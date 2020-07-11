@@ -38,7 +38,7 @@ class ReaderDirectory extends Reader
      * @deprecated
      */
     public function readPages() : Generator  {
-        foreach ( $this->generatePages() as $page ) {
+        foreach ($this->iteratePages() as $page ) {
             if ( !is_null($page) )
                 $this->context->prepare($page);
             yield $page;
@@ -54,7 +54,7 @@ class ReaderDirectory extends Reader
      * Esa lista se puede acceder con {@see getExceptionList()}
      * @return Generator|(Page|null)[]
      */
-    public function generatePages() : Generator {
+    public function iteratePages() : Generator {
         $this->exception_list = [];
         foreach (Util::iterateFilesRecursively($this->directory_path) as $file ) {
             try {
