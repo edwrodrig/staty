@@ -29,13 +29,27 @@ class ReaderDirectory extends Reader
     }
 
     /**
+     * No se debe mezclar el funcionamiento del lector con la preparación en un contexto.
+     * Hacer esto de manera manual.
+     * @return Generator|Page[]
+     * @throws ExceptionWithData
+     * @deprecated
+     */
+    public function readPages() : Generator  {
+        foreach ( $this->generatePages() as $page ) {
+            $this->context->prepare($page);
+            yield $page;
+        }
+    }
+
+    /**
      * @return Generator|Page[]
      * @throws ExceptionWithData
      */
-    public function readPages() : Generator  {
+    public function generatePages() : Generator {
         foreach (Util::iterateFilesRecursively($this->directory_path) as $file ) {
             $reader = new ReaderFile($this->context, $file->getPathname(), $this->directory_path);
-            yield from $reader->readPages();
+            yield from $reader->generatePages();
         }
     }
 
