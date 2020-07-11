@@ -37,10 +37,8 @@ class ReaderDirectoryTest extends TestCase
 
         $reader = new ReaderDirectory($context, $path);
 
-        /**
-         * @var Page[] $pages
-         */
-        $pages = iterator_to_array($reader->readPages(), false);
+
+        $pages = iterator_to_array($reader->generatePages(), false);
 
         $this->assertCount(2, $pages);
         $page = $pages[0];

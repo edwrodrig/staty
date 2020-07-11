@@ -32,37 +32,18 @@ class ReaderFile extends Reader
     }
 
     /**
-     * No se debe mezclar el funcionamiento del lector con la preparación en un contexto.
-     * Hacer esto de manera manual.
-     * Solo da para confusión durante el desarrollo
-     * @return Generator|Page[]
-     * @throws ExceptionWithData
-     * @deprecated
-     */
-    public function readPages() : Generator  {
-        foreach ( $this->generatePages() as $page ) {
-            $this->context->prepare($page);
-            yield $page;
-        }
-    }
-
-    /**
-     * @return Generator|Page[]
+     * @return Page
      * @throws ExceptionWithData
      */
-    public function generatePages() : Generator {
+    public function getPage() : Page {
         if ( SourcePhpScript::isPhp($this->filename) ) {
             $source = new SourceFile($this->filename);
             $relative_path = $this->getRelativePath(SourcePhpScript::stripExtension($this->filename));
-            $page = new PagePhp($this->context, $relative_path, $source);
-
-            yield $page;
+            return new PagePhp($this->context, $relative_path, $source);
         } else {
             $source = new SourceFile($this->filename);
             $relative_path = $this->getRelativePath($this->filename);
-            $page = new PageFile($source, $relative_path);
-
-            yield $page;
+            return new PageFile($source, $relative_path);
         }
     }
 

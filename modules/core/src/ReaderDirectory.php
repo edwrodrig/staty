@@ -5,10 +5,13 @@ namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
 use Generator;
+use Throwable;
 
 class ReaderDirectory extends Reader
 {
     private string $directory_path;
+
+    private array $exception_list = [];
 
     /**
      * ReaderFile constructor.
@@ -31,26 +34,38 @@ class ReaderDirectory extends Reader
     /**
      * No se debe mezclar el funcionamiento del lector con la preparación en un contexto.
      * Hacer esto de manera manual.
-     * @return Generator|Page[]
-     * @throws ExceptionWithData
+     * @return Generator|(Page|null)[]
      * @deprecated
      */
     public function readPages() : Generator  {
         foreach ( $this->generatePages() as $page ) {
-            $this->context->prepare($page);
+            if ( !is_null($page) )
+                $this->context->prepare($page);
             yield $page;
         }
     }
 
+    public function getExceptionList() : array {
+        return $this->exception_list;
+    }
+
     /**
-     * @return Generator|Page[]
-     * @throws ExceptionWithData
+     * Esta función genera lás páginas de este directorio. Si una página no puede ser generado y genera una excepción se van guardando en una lista de excepciones interna.
+     * Esa lista se puede acceder con {@see getExceptionList()}
+     * @return Generator|(Page|null)[]
      */
     public function generatePages() : Generator {
+        $this->exception_list = [];
         foreach (Util::iterateFilesRecursively($this->directory_path) as $file ) {
-            $reader = new ReaderFile($this->context, $file->getPathname(), $this->directory_path);
-            yield from $reader->generatePages();
+            try {
+                $reader = new ReaderFile($this->context, $file->getPathname(), $this->directory_path);
+                yield $reader->getPage();
+            } catch ( Throwable $exception ) {
+                $this->exception_list[] = $exception;
+                yield null;
+            }
         }
+
     }
 
 }

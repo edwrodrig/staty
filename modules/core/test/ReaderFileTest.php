@@ -23,7 +23,7 @@ class ReaderFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function testReadPages()
+    public function testGetPage()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file";
@@ -32,10 +32,8 @@ class ReaderFileTest extends TestCase
         $context = new Context();
         $reader = new ReaderFile($context, $source_filename, $path);
 
-        /** @var Page[] $pages */
-        $pages = iterator_to_array($reader->readPages(), false);
-        $this->assertCount(1, $pages);
-        $page = $pages[0];
+        $page = $reader->getPage();
+
         $this->assertEquals("file", $page->getRelativeFilename());
         $this->assertEquals("some content", $page->getContent());
 
@@ -44,7 +42,7 @@ class ReaderFileTest extends TestCase
     /**
      * @throws ExceptionWithData
      */
-    public function testReadPagesPhp()
+    public function testGetPagePhp()
     {
         $path = $this->root->url();
         $source_filename = $path . "/file.php";
@@ -53,12 +51,7 @@ class ReaderFileTest extends TestCase
         $context = new Context();
         $reader = new ReaderFile($context, $source_filename, $path);
 
-        /**
-         * @var Page[] $pages
-         */
-        $pages = iterator_to_array($reader->readPages(), false);
-        $this->assertCount(1, $pages);
-        $page = $pages[0];
+        $page = $reader->getPage();
         $this->assertEquals("file", $page->getRelativeFilename());
         $this->assertEquals("hello", $page->getContent());
 
