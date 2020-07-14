@@ -16,7 +16,6 @@ class PageCached extends Page
 {
     protected SourceFile $source;
     protected Cache $cache;
-    protected string $cache_filename;
 
     protected Page $page;
 

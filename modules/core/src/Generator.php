@@ -53,7 +53,6 @@ class Generator
     public function generate() : array {
         $generated_file_list = [];
         foreach ( $this->page_list as $page ) {
-
             $filename = $this->prepareOutputFilename($page->getRelativeFilename());
             $page->generate($filename);
             $generated_file_list[] = $page->getRelativeFilename();

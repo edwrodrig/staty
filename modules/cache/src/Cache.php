@@ -50,7 +50,7 @@ class Cache
         $directory = $this->absolute_path . '/' . $this->relative_path;
         foreach ( Util::iterateFilesRecursively($directory) as $file ) {
             if ( $file->isDot() ) continue;
-            $filename = $this->relative_path . '/' . $file->getFilename();
+            $filename = $this->relative_path . '/' . $file->getSubPathname();
             $entry = Entry::createFromExistentFile($filename);
             $entry_map[$entry->getId()] = $entry;
         }

@@ -103,6 +103,33 @@ class CacheTest extends TestCase
 
     }
 
+    /**
+     * @throws ExceptionWithData
+     */
+    public function testRecoverFromCachedNestedDirectories() {
+        $path = $this->root->url();
+        $directory = $path;
+
+        $cache = new Cache($directory, "cache");
+        $entry = $cache->getEntry('cache/dir1/dir2/dir3/hello');
+        $filename = $entry->getFilename(10);
+
+        mkdir($directory . '/cache/dir1/dir2/dir3', 0777, true);
+        touch($directory . '/' . $filename);
+
+        $this->assertFileExists($directory . '/' . $entry->getFilename(10));
+
+
+        $cache = new Cache($directory, "cache");
+        $entry = $cache->getEntry('cache/dir1/dir2/dir3/hello');
+        $this->assertFalse($entry->isExpired(0));
+
+        $this->assertFalse($entry->isExpired(10));
+
+        $this->assertTrue($entry->isExpired(time() + 100));
+
+    }
+
 
     public function testCacheDirectoryFileExists() {
         $path = $this->root->url();
