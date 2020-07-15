@@ -80,7 +80,7 @@ class PagePhp extends Page
      * </code>
      * use esto
      * <code>
-     * $page->registerError(new Exception("some error"));
+     * $page->registerException(new Exception("some error"));
      * </code>
      *
      * @param Throwable $throwable

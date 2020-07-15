@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace labo86\staty;
 
+use labo86\exception_with_data\ExceptionWithData;
 use labo86\staty_core\Context;
 use labo86\staty_core\Page;
 use labo86\staty_core\PagePhp;
 use labo86\staty_core\SourceFile;
 use labo86\staty_core\Util;
+use Throwable;
 
 /**
  * Class Block
@@ -84,6 +86,7 @@ class Block
      * @param Page $page
      * @param bool $cached Si esta página es cacheada o no
      * @return string the relative url of the new page
+     * @throws ExceptionWithData
      */
     public function makePage(Page $page, bool $cached = false) : string {
         if ( $cached && $this->page->getContext()->hasCache() ) {
@@ -98,6 +101,7 @@ class Block
      * Esto se hace considerando {@see getRelativeFilename()} de ambas páginas.
      * @param string $relative_filename
      * @return string
+     * @throws ExceptionWithData
      */
     public function getRelativeFilenameFromThis(string $relative_filename) : string {
         $from = $this->page->getContext()->getAbsolutePath() . '/' . $this->page->getRelativeFilename();
@@ -121,7 +125,23 @@ class Block
         return sprintf($str, ...$args);
     }
 
+    /**
+     * Construye un objeto PagePhp.
+     * Es útil para usar bloques en contextos donde el bloque no es llamado desde una página.
+     * Se puede usar cuando se usan bloques para pruebas.
+     * @return PagePhp
+     */
     public static function thisPage() : PagePhp {
         return new PagePhp(new Context(), __FILE__, new SourceFile(__FILE__));
+    }
+
+    /**
+     * Esta función registra una excepción que ocurre en la página.
+     * Un bloque no debería nunca generar una excepción.
+     * {@see PagePhp::registerException()}
+     * @param Throwable $throwable
+     */
+    public function registerException(Throwable $throwable) {
+        $this->page->registerException($throwable);
     }
 }
