@@ -36,7 +36,7 @@ $generator->generate();
 
 ## Instalación
 ```
-composer require labo86/hapi
+composer require labo86/staty
 ```
 
 ## Información de mi máquina de desarrollo
