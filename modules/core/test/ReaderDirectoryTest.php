@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\staty_core;
 
+use labo86\staty\ErrMsg;
 use labo86\staty_core\Context;
 use labo86\staty_core\Page;
 use labo86\staty_core\ReaderDirectory;
@@ -61,7 +62,7 @@ class ReaderDirectoryTest extends TestCase
             $this->fail("should throw");
 
         } catch ( ExceptionWithData $exception ) {
-            $this->assertEquals('directory does not exists', $exception->getMessage());
+            $this->assertEquals(ErrMsg::DIRECTORY_DOES_NOT_EXIST, $exception->getMessage());
             $this->assertEquals(['directory_path' => 'vfs://root/not_existent'], $exception->getData());
         }
     }
@@ -77,7 +78,7 @@ class ReaderDirectoryTest extends TestCase
             $this->fail("should throw");
 
         } catch ( ExceptionWithData $exception ) {
-            $this->assertEquals('directory path is a file', $exception->getMessage());
+            $this->assertEquals(ErrMsg::DIRECTORY_PATH_IS_A_FILE, $exception->getMessage());
             $this->assertEquals(['directory_path' => 'vfs://root/file'], $exception->getData());
         }
     }

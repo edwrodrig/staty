@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty\ErrMsg;
 
 class Generator
 {
@@ -37,7 +38,7 @@ class Generator
             mkdir($directory_path, 0777, true);
 
         if ( !is_dir($directory_path) )
-            throw new ExceptionWithData('target directory is not a directory',
+            throw new ExceptionWithData(ErrMsg::TARGET_DIRECTORY_IS_NOT_A_DIRECTORY,
                 [
                     'relative_filename' => $relative_filename,
                     'directory_path' => $directory_path,

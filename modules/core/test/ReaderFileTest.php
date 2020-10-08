@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\staty_core;
 
+use labo86\staty\ErrMsg;
 use labo86\staty_core\Context;
 use labo86\staty_core\Page;
 use labo86\staty_core\ReaderFile;
@@ -68,7 +69,7 @@ class ReaderFileTest extends TestCase
             $this->fail("should throw");
 
         } catch ( ExceptionWithData $exception ) {
-            $this->assertEquals('filename does not exists', $exception->getMessage());
+            $this->assertEquals(ErrMsg::FILENAME_DOES_NOT_EXIST, $exception->getMessage());
             $this->assertEquals(['filename' => 'vfs://root/file'], $exception->getData());
         }
     }

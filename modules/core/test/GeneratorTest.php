@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\staty_core;
 
+use labo86\staty\ErrMsg;
 use labo86\staty_core\Generator;
 use labo86\staty_core\PageString;
 use labo86\exception_with_data\ExceptionWithData;
@@ -50,7 +51,7 @@ class GeneratorTest extends TestCase
             $this->fail("should fail");
 
         } catch ( ExceptionWithData $exception ) {
-            $this->assertEquals('target directory is not a directory', $exception->getMessage());
+            $this->assertEquals(ErrMsg::TARGET_DIRECTORY_IS_NOT_A_DIRECTORY, $exception->getMessage());
             $this->assertEquals([
                         'relative_filename' => '/existent_file/hello',
                         'directory_path' => 'vfs://root/folder//existent_file',

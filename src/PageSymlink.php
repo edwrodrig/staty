@@ -42,7 +42,7 @@ class PageSymlink extends PageFile
         $this->cleanTarget($filename);
 
         if ( @symlink($target, $filename) === FALSE ) {
-            throw new ExceptionWithData("error making symlink",
+            throw new ExceptionWithData(ErrMsg::ERROR_MAKING_SYMLINK,
                 [
                     'from' => $from,
                     'to' => $to,
@@ -61,7 +61,7 @@ class PageSymlink extends PageFile
     public function cleanTarget(string $filename) {
         if ( is_link($filename) ) {
             if ( !unlink($filename) ) {
-                throw new ExceptionWithData("error unlinking symlink",
+                throw new ExceptionWithData(ErrMsg::ERROR_UNLINKING_SYMLINK,
                     [
                         'filename' => $filename
                     ]
@@ -70,7 +70,7 @@ class PageSymlink extends PageFile
         }
         else if ( is_dir($filename)) {
             if ( !rmdir($filename) ) {
-                throw new ExceptionWithData("error removing directory",
+                throw new ExceptionWithData(ErrMsg::ERROR_REMOVING_DIRECTORY,
                     [
                         'filename' => $filename,
                         'hint' => 'quizás el directorio no está vacío'
@@ -80,7 +80,7 @@ class PageSymlink extends PageFile
         }
         else if ( file_exists($filename) ) {
             if ( !unlink($filename) ) {
-                throw new ExceptionWithData("error unlinking existent file",
+                throw new ExceptionWithData(ErrMsg::ERROR_UNLINKING_EXISTENT_FILE,
                     [
                         'filename' => $filename
                     ]

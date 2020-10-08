@@ -7,6 +7,7 @@ namespace labo86\staty_core;
 use FilesystemIterator;
 use Generator;
 use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty\ErrMsg;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Throwable;
@@ -107,7 +108,7 @@ class Util
         $first_to   = $to[0] ?? '';
         // se usa xor porque solo se debe lanzar excepción cuando uno de los dos es root pero no ambos
         if ( ($first_from == '/') xor ($first_to == '/') ) throw new ExceptionWithData(
-            "can't compare absolute with relative path",
+            ErrMsg::CANNOT_COMPARE_ABSOLUTE_AND_RELATIVE_PATH,
             [
                 'from' => $from,
                 'to' => $to

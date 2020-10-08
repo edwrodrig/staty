@@ -5,6 +5,7 @@ namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
 use Generator;
+use labo86\staty\ErrMsg;
 
 class ReaderFile extends Reader
 {
@@ -20,7 +21,7 @@ class ReaderFile extends Reader
      */
     public function __construct(Context $context, string $filename, string $base_path = '') {
         parent::__construct($context);
-        if ( !is_file($filename) )  throw new ExceptionWithData( 'filename does not exists',
+        if ( !is_file($filename) )  throw new ExceptionWithData( ErrMsg::FILENAME_DOES_NOT_EXIST,
             [
                 'filename' => $filename
             ]

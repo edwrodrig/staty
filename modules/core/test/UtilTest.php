@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace test\labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty\ErrMsg;
 use labo86\staty_core\SourceFile;
 use labo86\staty_core\Util;
 use Exception;
@@ -115,7 +116,7 @@ class UtilTest extends TestCase
             Util::getRelativePath("../output/www/bundle/fa", "/home/edwin/Projects/imo_site/modules/site/src/../../site_res/dist/fa/");
 
         } catch (ExceptionWithData $exception) {
-            $this->assertEquals('can\'t compare absolute with relative path', $exception->getMessage());
+            $this->assertEquals(ErrMsg::CANNOT_COMPARE_ABSOLUTE_AND_RELATIVE_PATH, $exception->getMessage());
             $this->assertEquals(['from' => "../output/www/bundle/fa", 'to' => "/home/edwin/Projects/imo_site/modules/site_res/dist/fa/"], $exception->getData());
         }
 

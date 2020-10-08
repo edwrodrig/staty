@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
+use labo86\staty\ErrMsg;
 
 class SourceFile extends Source implements SourceFileInterface
 {
@@ -25,7 +26,7 @@ class SourceFile extends Source implements SourceFileInterface
      * @throws ExceptionWithData
      */
     public function __construct(string $filename) {
-        if ( !file_exists($filename) ) throw new ExceptionWithData( 'source file does not exists',
+        if ( !file_exists($filename) ) throw new ExceptionWithData( ErrMsg::SOURCE_FILE_DOES_NOT_EXIST,
             [
                 'filename' => $filename
             ]

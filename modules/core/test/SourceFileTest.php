@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace test\labo86\staty_core;
 
+use labo86\staty\ErrMsg;
 use labo86\staty_core\SourceFile;
 use labo86\exception_with_data\ExceptionWithData;
 use org\bovigo\vfs\vfsStream;
@@ -54,7 +55,7 @@ class SourceFileTest extends TestCase
             $this->fail("should except");
 
         } catch (ExceptionWithData $exception) {
-            $this->assertEquals('source file does not exists', $exception->getMessage());
+            $this->assertEquals(ErrMsg::SOURCE_FILE_DOES_NOT_EXIST, $exception->getMessage());
             $this->assertEquals(['filename' => $source_filename], $exception->getData());
         }
 

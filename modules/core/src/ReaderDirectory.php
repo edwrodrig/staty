@@ -5,6 +5,7 @@ namespace labo86\staty_core;
 
 use labo86\exception_with_data\ExceptionWithData;
 use Generator;
+use labo86\staty\ErrMsg;
 use Throwable;
 
 class ReaderDirectory extends Reader
@@ -23,10 +24,10 @@ class ReaderDirectory extends Reader
         parent::__construct($context);
         if ( is_file($directory_path) )
             throw new ExceptionWithData(
-    'directory path is a file', ['directory_path' => $directory_path ]);
+        ErrMsg::DIRECTORY_PATH_IS_A_FILE, ['directory_path' => $directory_path ]);
         if ( !is_dir($directory_path) )
             throw new ExceptionWithData(
-            'directory does not exists', [ 'directory_path' => $directory_path]);
+        ErrMsg::DIRECTORY_DOES_NOT_EXIST, [ 'directory_path' => $directory_path]);
 
         $this->directory_path = $directory_path;
     }

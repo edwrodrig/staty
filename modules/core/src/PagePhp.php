@@ -97,4 +97,13 @@ class PagePhp extends Page
     public function getExceptionList() : array {
         return $this->exceptions;
     }
+
+    /**
+     * Obtiene el base dir de la pagina.
+     * Lo saca contrastando {@see getSourceFilename()} con {@see getRelativeFilename()}
+     * @return string
+     */
+    public function getBaseDir() : string {
+        return str_replace('/' . $this->getRelativeFilename() . '.php', '', $this->getSourceFilename());
+    }
 }
